@@ -1,0 +1,50 @@
+.slick-prev:before{
+  color: grey !important;
+  font-size:27px !important;
+}
+
+.slick-next:before{
+  color: grey !important;
+  font-size:27px !important;
+}
+
+/* .slick-track{
+  width:100% !important;
+  margin-left: 0 !important;
+   margin-right: 0 !important;
+} */
+
+.carousel-control-prev{
+  position: absolute;
+  left: -150px;
+}
+.carousel-control-next{
+  position: absolute;
+  right: -120px;
+}
+
+.carousel-indicators{
+  visibility: hidden;
+}
+
+.width-item{
+  width:100% !important;
+}
+
+.slick-arrow.slick-next{
+  top:600px !important;
+}
+
+.slick-arrow.slick-prev{
+  top:600px !important;
+}
+
+.slick-active:before{
+  position:absolute;
+
+}
+
+.card::before{
+  transform: skewY(20deg);
+}
+

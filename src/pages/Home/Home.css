@@ -1,0 +1,24 @@
+.nav-pills .nav-link.active{
+  color: #60c5ef
+ 
+}
+
+.nav-pills .nav-link{
+  color: #fff;
+}
+
+.nav-pills .nav-link.active:hover{
+
+  transform: scale3d(1.2);
+  translate: all .2;
+ 
+}
+
+  .nav-pills .nav-link:hover{
+    scale: 1.2;
+  }
+
+.card{
+  background-color: #212121;
+  border: none;
+}

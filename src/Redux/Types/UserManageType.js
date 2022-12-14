@@ -1,0 +1,3 @@
+// export const LAY_THONG_TIN_ND= "LAY_THONG_TIN_ND"
+export const DANG_NHAP = "DANG_NHAP"
+export const THONG_TIN_NGUOI_DUNG ="THONG_TIN_NGUOI_DUNG"

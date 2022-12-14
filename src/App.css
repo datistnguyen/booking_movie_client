@@ -1,0 +1,32 @@
+.bg\-\[\#f6cda8\]{
+  background-color: #f6cda8
+}
+.bg\-\[\#d89d94\]{
+  background-color: #d89d94
+}
+.bg\-\[\#dd6b6c\]{
+  background-color: #dd6b6c
+}
+.bg\-\[\#875d71\]{
+  background-color: #875d71
+}
+.bg\-\[\#5b5b5b\]{
+  background-color: #5b5b5b
+}
+.bg\-\[\#efedec\]{
+  background-color: #efedec
+}
+.divide-gray-400\/50 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgb(156 163 175 / 0.5);
+}
+
+#root{
+  background-color: #212121;
+} 
+body {
+  overflow-x: hidden;
+}
+
+.slick-track {
+  margin: 0  !important;
+}

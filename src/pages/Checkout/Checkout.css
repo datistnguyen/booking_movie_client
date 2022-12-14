@@ -1,0 +1,81 @@
+.check{
+  background: url(https://www.jeanmineurmediavision.nl/wp-content/uploads/2019/08/cinema-slide.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 800px;
+  overflow-y: scroll;
+  width: 100%;
+}
+.ghe{
+  width: 4%;
+  height: 30px;
+  border-radius: 5px;
+  cursor: poniter;
+  margin: 7px;
+  color: #fff;
+  border: solid 3px goldenrod;
+  background-color: grey;
+}
+
+.ghedadat{
+  background-color:#da0000;
+  cursor: no-drop !important;
+  width: 4%;
+  height: 30px;
+  border-radius: 5px;
+  cursor: no-drop !important;
+  margin: 7px;
+  border: solid 3px goldenrod;
+}
+
+.ghedangdat{
+  background-color:#1e6821 !important;
+}
+
+.gheVip{
+  background-color:#721c16;
+  width: 4%;
+  height: 30px;
+  border-radius: 5px;
+  cursor: poniter;
+  margin: 7px;
+  border: solid 3px goldenrod;
+}
+
+.ghedadcdat{
+  background-color:#fff;
+  width: 4%;
+  height: 30px;
+  border-radius: 5px;
+  margin: 7px;
+  border: solid 3px goldenrod;
+  color:goldenrod;
+}
+
+.ghekhachdat{
+  background-color:rgb(242,25,191) !important;
+  cursor:no-drop;
+  width: 4%;
+  height: 30px;
+  border-radius: 5px;
+  margin: 7px;
+  border: solid 3px goldenrod;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color:white !important;
+}
+.ant-tabs{
+  color : white !important;
+}
+.ant-tabs-tab>.ant-tabs-tab-btn#rc-tabs-4-tab-2{
+  color:white !important;
+}
+
+.ant-tabs-top > .ant-tabs-nav::before{
+  border-bottom: 1px solid #504a10 !important;
+}
+
+.ant-tabs-ink-bar{
+  background-color:#e8e19a !important;
+}
