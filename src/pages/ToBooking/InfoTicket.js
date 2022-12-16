@@ -12,7 +12,7 @@ const InfoTicket = () => {
                 url: "http://localhost:8080/book/ticket/detail",
                 method: "get",
                 params: {
-                    id_book: idBook
+                  id_book: idBook
                 }
             })
             const result= await res.data

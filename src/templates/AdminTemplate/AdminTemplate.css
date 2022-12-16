@@ -16,3 +16,6 @@
 .site-layout-background {
   background: #fff;
 }
+.-title-content {
+  margin-left: 10px !important;
+}

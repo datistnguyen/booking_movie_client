@@ -12,6 +12,10 @@ import {
   // TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import {SiCinema4D, SiGoogleclassroom } from "react-icons/si"
+import {AiOutlineCluster} from "react-icons/ai"
+import {CiDiscount1} from "react-icons/ci"
+import "./AdminTemplate.css"
 const { Header, Content, Footer, Sider } = Layout;
 // const {Submenu} = Menu
 
@@ -95,15 +99,12 @@ export const AdminTemplate = (props) => {
             </NavLink>
           </div>
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item key="3" icon={<PieChartOutlined />}>
+            {/* <Menu.Item key="3" icon={<PieChartOutlined />}>
               <NavLink to="/admin/Dashboard">Dashboard</NavLink>
-            </Menu.Item>
+            </Menu.Item> */}
             <SubMenu key="sub2" icon={<UserOutlined />} title="User">
               <Menu.Item key="1" icon={<FileOutlined />}>
                 <NavLink to="/admin/user">Users</NavLink>
-              </Menu.Item>
-              <Menu.Item key="9" icon={<FileOutlined />}>
-                <NavLink to="/admin/user/adduser">Add User</NavLink>
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub1" icon={<DesktopOutlined />} title="Film">
@@ -112,6 +113,38 @@ export const AdminTemplate = (props) => {
               </Menu.Item>
               <Menu.Item key="5" icon={<FileOutlined />}>
                 <NavLink to="/admin/film/addnew">Add New</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub3" icon={<SiCinema4D />} title="Cinema">
+              <Menu.Item key="66" icon={<SiCinema4D />}>
+                <NavLink to="/admin/cinema">Cinema</NavLink>
+              </Menu.Item>
+              <Menu.Item key="51" icon={<SiCinema4D />}>
+                <NavLink to="/admin/cinema/addnew">Add Cinema</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub4" icon={<AiOutlineCluster />} title="Cluster">
+              <Menu.Item key="10" icon={<AiOutlineCluster />}>
+                <NavLink to="/admin/cluster">Cluster</NavLink>
+              </Menu.Item>
+              <Menu.Item key="99" icon={<AiOutlineCluster />}>
+                <NavLink to="/admin/cluster/addnew">Add Cluster</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="su6b" icon={<SiGoogleclassroom />} title="Room">
+              <Menu.Item key="11" icon={<SiGoogleclassroom />}>
+                <NavLink to="/admin/room">Room</NavLink>
+              </Menu.Item>
+              <Menu.Item key="12" icon={<SiGoogleclassroom />}>
+                <NavLink to="/admin/room/addnew">Add Room</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub7" icon={<CiDiscount1 />} title="Discount">
+              <Menu.Item key="13" icon={<CiDiscount1 />}>
+                <NavLink to="/admin/discount">Discount</NavLink>
+              </Menu.Item>
+              <Menu.Item key="15" icon={<CiDiscount1 />}>
+                <NavLink to="/admin/discount/addnew">Add Discount</NavLink>
               </Menu.Item>
             </SubMenu>
           </Menu>

@@ -22,9 +22,9 @@ export default function FilmHot(props) {
       {
         data?.map((item, key)=> <div key={key} style={{width: "20%", padding: 10}}>
             <div style={{width: "100%"}}>
-              <img src={item?.img} alt="" style={{width: "100%", aspectRatio: 2 / 3, objectFit: "cover"}} />
+              <img src={item?.img} alt="" style={{width: "100%", aspectRatio: 2 / 3, objectFit: "cover", borderRadius: 5}} />
               <div title={item.movieName} style={{color: "#fff", width: '100%', overflow: "hidden", textOverflow: "ellipsis", fontSize: 18}}>{item.movieName}</div>
-              <Link to={"/booking/movie-information/"+ item?.id}>
+              <Link to={"/booking/movie-information/"+ item?.id} style={{display: "flex", justifyContent:" center", alignItems: "center", marginTop: 16}}>
                 <div style={{padding: "6px 8px", background: "red", borderRadius: 5, cursor: "pointer", color: "#fff", width: "max-content"}}>
                   Đặt vé
                 </div>

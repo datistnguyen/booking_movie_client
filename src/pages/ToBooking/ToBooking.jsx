@@ -183,14 +183,14 @@ const ChooseChair= (props)=> {
      useEffect(()=> {
         (async()=> {
             const res= await axios({
-                url: "http://localhost:8080/room/get_room/by/cinema/"+ props?.idCinema,
+                url: "http://localhost:8080/room/get_room/by/cinema/"+ props?.idCinema+ "/"+ props?.idFilm,
                 method: "get"
             })
             const result= await res.data
             setSeated(result.seated)
             return setInfoRoom(result.roomChosen)
         })()
-     }, [props?.idCinema])
+     }, [props?.idCinema, props?.idFilm])
     const navigate= useNavigate()
     const {timeStart}= useLocation().state
     

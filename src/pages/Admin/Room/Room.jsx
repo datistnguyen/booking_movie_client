@@ -1,14 +1,15 @@
-import { Button, Input, Modal } from 'antd';
+import { Button, Input, Modal, Select } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
 import {AiOutlineSearch} from "react-icons/ai"
-import "./ListUser.css"
+import "../Users/ListUser/ListUser.css"
+const {Option}= Select
 
-const ListUser = (props) => {
-    const [idUser, setIdUser]= useState()
+const ListRoom = (props) => {
+    const [idRoom, setidRoom]= useState()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);
@@ -23,32 +24,16 @@ const ListUser = (props) => {
     useEffect(()=> {
       (async()=> {
         const res= await axios({
-            url: "http://localhost:8080/auth/getAllUser",
+            url: "http://localhost:8080/room/",
             method: "get",
         })
         const result= await res.data
         return setData(result)
       })()
     }, [])
-    // eslint-disable-next-line
-    const columns = [
-        {
-          title: 'Email',
-        },
-        {
-          title: 'Username',
-        },
-        {
-          title: 'Address',
-        },
-        {
-          title: 'Phonenumber',
-         
-        }
-      ];
-  const deleteUser= async (id)=> {
+  const deleteCluster= async (id)=> {
     const res= await axios({
-      url: "http://localhost:8080/auth/delete/"+ id,
+      url: "http://localhost:8080/room/delete/"+ id,
       method: "delete"
     })
     const result= await res.data
@@ -67,29 +52,29 @@ const ListUser = (props) => {
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Email</td>
-          <td>Username</td>
-          <td>Address</td>
-          <td>Phone Number</td>
+          <td>Tên phòng</td>
+          <td>Địa chỉ</td>
+          <td>Chỗ ngồi</td>
+          <td>Thuộc rạp</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
-      <tbody className={"dkdjksjklasafdasd"}>
+      <tbody className={"t-body-item"}>
         {
           data?.map((item, key)=> <tr className={"fzjldjlksjakaas"} key={key}>
-            <td className={"fgjflsjfkljskdale"}>{item.email}</td>
-            <td className={"fgjflsjfkljskdale"}>{item.username}</td>
-            <td className={"fgjflsjfkljskdale"}>{item.address}</td>
-            <td className={"fgjflsjfkljskdale"}>{item.phoneNumber}</td>
-            <td className={"fgjflsjfkljskdale"}>
+            <td className={"td-item"}>{item.RoomName}</td>
+            <td className={"td-item"}>{item.address}</td>
+            <td className={"td-item"}>{item.seat}</td>
+            <td>{item.Cinema?.cinemaName}</td>
+            <td className={"td-item"}>
               <div style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 20}}>
                 <Button onClick={()=> {
                   showModal()
-                  setIdUser(item.id)
+                  setidRoom(item.id)
                 }}>Chỉnh sửa</Button>
                 <Button onClick={()=> {
-                  deleteUser(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa tài khoản này thành công", "success")
+                  deleteCluster(item.id);
+                  swal("Chúc mừng", "Bạn đã xóa phòng này thành công", "success")
                 }}>Xóa</Button>
               </div>
             </td>
@@ -104,34 +89,44 @@ const ListUser = (props) => {
     </table>
     {
       isModalOpen=== true && 
-      <InfoDetailUser idUser={idUser} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
+      <InfoRoomDetail idRoom={idRoom} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
     } 
     </>
   )
 }
 
-const InfoDetailUser= (props)=> {
+const InfoRoomDetail= (props)=> {
   const [data, setData]= useState()
+  const [newData, setNewData]= useState()
+  const [cinema, setCinema]= useState()
   useEffect(()=> {
     (async()=> {
       const res= await axios({
-        url: "http://localhost:8080/auth/detail",
+        url: "http://localhost:8080/room/detail/"+ props?.idRoom,
         method: "get",
-        params: {
-          id_user: props?.idUser
-        }
       })
       const result= await res.data
+      const {cinemaName, ...newResult}= result
+      setNewData(newResult)
       return setData(result)
     })()
-  }, [props?.idUser])
-  const updateUser= async()=> {
+  }, [props?.idRoom])
+  useEffect(()=> {
+    (async()=> {
+        const res= await axios({
+            url: "http://localhost:8080/cinema/",
+            method: "get"
+        })
+        const result= await res.data
+        return setCinema(result)
+    })()
+  }, [])
+  const updateRoom= async()=> {
     const res= await axios({
-      url: "http://localhost:8080/auth/update",
-      method: "post",
+      url: "http://localhost:8080/room/update/"+  props?.idRoom,
+      method: "patch",
       data: {
-        id_user: props?.idUser,
-        ...data
+        ...newData
       }
     })
     const result= await res.data
@@ -139,20 +134,25 @@ const InfoDetailUser= (props)=> {
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin người dùng" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Sửa thông tin phòng vé" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
-      updateUser()
+      updateRoom()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Email</div>
-      <Input value={data?.email} onChange={(e)=> setData(prev=> ({...prev, email: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên người dùng</div>
-      <Input value={data?.username} onChange={(e)=> setData(prev=> ({...prev, username: e.target.value}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Tên phòng</div>
+      <Input value={newData?.RoomName} onChange={(e)=> setNewData(prev=> ({...prev, RoomName: e.target.value}))} />
       <div className={"label-item"} style={{marginBottom: 8}}>Địa chỉ</div>
-      <Input value={data?.address} onChange={(e)=> setData(prev=> ({...prev, address: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Số điện thoại</div>
-      <Input value={data?.phoneNumber} onChange={(e)=> setData(prev=> ({...prev, phoneNumber: e.target.value}))} />
+      <Input value={newData?.address} onChange={(e)=> setNewData(prev=> ({...prev, address: e.target.value}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Chỗ ngồi</div>
+      <Input value={newData?.seat} onChange={(e)=> setNewData(prev=> ({...prev, seat: e.target.value}))} />
+      <br />
+      <div className={"label-item"} style={{marginBottom: 8}}>Rạp phim</div>
+      <Select style={{width: "100%"}} value={data?.cinemaName} onChange={(e)=> setNewData(prev=> ({...prev, cinemaId: e}))}>
+        {
+            cinema?.map((item, key)=> <Option key={key} value={item.id}>{item.cinemaName}</Option>)
+        }
+      </Select>
     </Modal>
   )
 }
 
-export default ListUser
+export default ListRoom

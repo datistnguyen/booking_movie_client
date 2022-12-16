@@ -1,14 +1,14 @@
-import { Button, Input, Modal } from 'antd';
+import { Button, Input, Modal, Select } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
 import {AiOutlineSearch} from "react-icons/ai"
-import "./ListUser.css"
-
-const ListUser = (props) => {
-    const [idUser, setIdUser]= useState()
+import "../Users/ListUser/ListUser.css"
+const { Option } = Select;
+const ListCinema = (props) => {
+    const [idCinema, setIdCinema]= useState()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);
@@ -23,7 +23,7 @@ const ListUser = (props) => {
     useEffect(()=> {
       (async()=> {
         const res= await axios({
-            url: "http://localhost:8080/auth/getAllUser",
+            url: "http://localhost:8080/cinema/",
             method: "get",
         })
         const result= await res.data
@@ -33,16 +33,16 @@ const ListUser = (props) => {
     // eslint-disable-next-line
     const columns = [
         {
-          title: 'Email',
+          title: 'Tên rạp',
         },
         {
-          title: 'Username',
+          title: 'Địa chỉ',
         },
         {
-          title: 'Address',
+          title: 'Hình ảnh',
         },
         {
-          title: 'Phonenumber',
+          title: 'Cụm rạp',
          
         }
       ];
@@ -67,25 +67,25 @@ const ListUser = (props) => {
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Email</td>
-          <td>Username</td>
-          <td>Address</td>
-          <td>Phone Number</td>
+          <td>Tên rạp</td>
+          <td>Địa chỉ</td>
+          <td>Hình ảnh</td>
+          <td>Cụm rạp</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
       <tbody className={"dkdjksjklasafdasd"}>
         {
           data?.map((item, key)=> <tr className={"fzjldjlksjakaas"} key={key}>
-            <td className={"fgjflsjfkljskdale"}>{item.email}</td>
-            <td className={"fgjflsjfkljskdale"}>{item.username}</td>
+            <td className={"fgjflsjfkljskdale"}>{item.cinemaName}</td>
             <td className={"fgjflsjfkljskdale"}>{item.address}</td>
-            <td className={"fgjflsjfkljskdale"}>{item.phoneNumber}</td>
+            <td className={"fgjflsjfkljskdale"}>{item.img}</td>
+            <td className={"fgjflsjfkljskdale"}>{item.ClusterName}</td>
             <td className={"fgjflsjfkljskdale"}>
               <div style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 20}}>
                 <Button onClick={()=> {
                   showModal()
-                  setIdUser(item.id)
+                  setIdCinema(item.id)
                 }}>Chỉnh sửa</Button>
                 <Button onClick={()=> {
                   deleteUser(item.id);
@@ -104,7 +104,7 @@ const ListUser = (props) => {
     </table>
     {
       isModalOpen=== true && 
-      <InfoDetailUser idUser={idUser} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
+      <InfoDetailUser idCinema={idCinema} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
     } 
     </>
   )
@@ -112,26 +112,37 @@ const ListUser = (props) => {
 
 const InfoDetailUser= (props)=> {
   const [data, setData]= useState()
+  const [cluster, setCluster]= useState()
+  const [newResult, setNewResult]= useState()
+
   useEffect(()=> {
     (async()=> {
       const res= await axios({
-        url: "http://localhost:8080/auth/detail",
+        url: "http://localhost:8080/cinema/detail/cinema/"+ props?.idCinema,
         method: "get",
-        params: {
-          id_user: props?.idUser
-        }
       })
       const result= await res.data
+      const {Cluster, ...newResult}= result
+      setNewResult(newResult)
       return setData(result)
     })()
-  }, [props?.idUser])
-  const updateUser= async()=> {
+  }, [props?.idCinema])
+  useEffect(()=> {
+    (async()=> {
+      const res= await axios({
+        url: "http://localhost:8080/cluster",
+        method: "get"
+      })
+      const result= await res.data
+      return setCluster(result)
+    })()
+  }, [])
+  const updateCinema= async()=> {
     const res= await axios({
-      url: "http://localhost:8080/auth/update",
-      method: "post",
+      url: "http://localhost:8080/cinema/update/"+  props?.idCinema,
+      method: "patch",
       data: {
-        id_user: props?.idUser,
-        ...data
+        ...newResult
       }
     })
     const result= await res.data
@@ -141,18 +152,22 @@ const InfoDetailUser= (props)=> {
   return (
     <Modal title="Sửa thông tin người dùng" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
-      updateUser()
+      updateCinema()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Email</div>
-      <Input value={data?.email} onChange={(e)=> setData(prev=> ({...prev, email: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên người dùng</div>
-      <Input value={data?.username} onChange={(e)=> setData(prev=> ({...prev, username: e.target.value}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Tên rạp</div>
+      <Input value={newResult?.cinemaName} onChange={(e)=> setNewResult(prev=> ({...prev, cinemaName: e.target.value}))} />
       <div className={"label-item"} style={{marginBottom: 8}}>Địa chỉ</div>
-      <Input value={data?.address} onChange={(e)=> setData(prev=> ({...prev, address: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Số điện thoại</div>
-      <Input value={data?.phoneNumber} onChange={(e)=> setData(prev=> ({...prev, phoneNumber: e.target.value}))} />
+      <Input value={newResult?.address} onChange={(e)=> setNewResult(prev=> ({...prev, address: e.target.value}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Hình ảnh</div>
+      <Input value={newResult?.img} onChange={(e)=> setNewResult(prev=> ({...prev, img: e.target.value}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Cụm rạp</div>
+      <Select style={{width: "100%"}} value={data?.Cluster?.ClusterName} onChange={(e)=> setNewResult(prev=> ({...prev, cluserId: e}))}>
+        {
+          cluster?.map((item, key)=> <Option key={key} value={item.id}>{item.ClusterName}</Option>)
+        }
+      </Select>     
     </Modal>
   )
 }
 
-export default ListUser
+export default ListCinema

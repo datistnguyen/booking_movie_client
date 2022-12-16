@@ -11,7 +11,6 @@ import Admin from './pages/Admin/Admin'
 import FilmHot from './pages/FilmHot/FilmHot'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import AddUser from './pages/Admin/Users/AddUser/AddUser'
 import Detail from './pages/Detail/Detail'
 import Checkout from './pages/Checkout/Checkout'
 import Profile from "./pages/Profile/Profile"
@@ -21,8 +20,6 @@ import Header from './templates/HomeTemplate/Layout/Header/Header';
 import Footer from './templates/HomeTemplate/Layout/Footer/Footer';
 import ToBooking from './pages/ToBooking/ToBooking';
 import ContactPage from './Components/Contact/Contact';
-import ListUser from './pages/Admin/Users/ListUser/ListUser';
-import ListFilm from './pages/Admin/Film/Film';
 // import {Supense,lazy} from 'react'
 
 export const history = createBrowserHistory();
@@ -119,10 +116,7 @@ function App() {
       </Fragment>
      }/>
      <Route path="/checkout/:id" element={<Checkout />}/>
-     <Route path="/admin/*" element={<AdminTemplate component={<Admin/> } />}/>
-     <Route path='/admin/user/adduser' element={<AdminTemplate component={<AddUser/> } />}/>
-     <Route path="/admin/user/" element={<AdminTemplate component={<ListUser />} />} />
-     <Route path={"/admin/film"} element={<AdminTemplate component={<ListFilm />} />} />
+     <Route path="/admin/*" element={<Admin />}/>
     </Routes>
   </BrowserRouter>
   </div>

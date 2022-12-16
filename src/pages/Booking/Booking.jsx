@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import "./Booking.sass"
 import {TfiTimer} from "react-icons/tfi"
-import { NavLink, Route, Routes, useParams } from 'react-router-dom'
+import { NavLink, Route, Routes } from 'react-router-dom'
 import BookingComponent from './BookingComponent/BookingComponent'
 import ShowTimes from './BookingComponent/ShowTimes'
 import BuyTickets from './BookingComponent/BuyTickets'
 import axios from 'axios'
 import { useMemo } from 'react'
+import Review from './BookingComponent/Review'
 
 const Booking = (props) => {
   const [data, setData]= useState([])
@@ -26,8 +27,6 @@ const Booking = (props) => {
         const result= await res.data
         setCluster(result.cluster)
         return setData(result.data)
-
-
     })()
   }, [idFilm])
   return (
@@ -39,6 +38,7 @@ const Booking = (props) => {
             <Route path={"/movie-information/:idFilm"} element={<BookingComponent data={data} />} />
             <Route path={"/showtimes/:idFilm"} element={<ShowTimes />} />
             <Route path={"/buy-ticket/:idFilm"} element={<BuyTickets data={data} cluster={cluster} />} />
+            <Route path={"/review/:idFilm"} element={<Review />} />
         </Routes>
     </div>
   )
@@ -70,6 +70,9 @@ const Navigation= (props)=> {
                 {/* <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/news/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
                     Tin tức
                 </NavLink> */}
+                <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/review/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    Đánh giá
+                </NavLink>
                 <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/buy-ticket/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
                     Mua vé
                 </NavLink>

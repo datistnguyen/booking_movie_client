@@ -74,9 +74,9 @@ export default function Header(props) {
       <li className="nav-item">
         <NavLink  className="nav-link text-white"  activeClassName="border-b-1 border-white"  to="/filmhot">Film Hot</NavLink>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <NavLink  className="nav-link text-white"  activeClassName="border-b-1 border-white"  to="/admin">Admin</NavLink>
-      </li>
+      </li> */}
       <li className="nav-item">
         <NavLink  className="nav-link text-white"  activeClassName="border-b-1 border-white"  to="/contact">Liên hệ</NavLink>
       </li>

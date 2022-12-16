@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {MdOutlineKeyboardArrowRight} from "react-icons/md"
 import moment from "moment"
 
-const ShowTimes = (props) => {
+const ShowTimes = () => {
   return (
     <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
         <div className={"dfjldjhskljhkaldsx"} style={{width: '100%', maxWidth: 960}}>
@@ -32,7 +32,7 @@ const ShowTimes = (props) => {
 
 export const ComponentDay= (props)=> {
     return (
-        <div className={"jfdjfklsfdljkfadas"} style={{height: "100%", flex: " 1 1 0", padding: "8px 12px", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "column", background: "#c7d6ec"}}>
+        <div onClick={()=> props?.setChooseDay(props?.day)} className={"jfdjfklsfdljkfadas"} style={{height: "100%", flex: " 1 1 0", padding: "8px 12px", display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "column", background: props?.chooseDay === props?.day ? "#fff" : "#c7d6ec", cursor: "pointer", color: props?.chooseDay === props?.day ? "#000" : "rgb(149, 170, 201)"}}>
             <div className={"fjkldfjklwjdaklsda"} style={{fontSize: 15, fontWeight: 600, color: "#95aac9"}}>{props?.day}</div>
             <div className={"dskjfkjfdkawjdksas"} style={{fontSize: 12, color: "#95aac9"}}>{props?.formatDay}</div>
         </div>
@@ -64,7 +64,6 @@ const ComponentCinema= (props)=> {
                     <ComponentTheater />
                     <ComponentTheater />
                     <ComponentTheater />
-
                 </div>
             }
         </div>

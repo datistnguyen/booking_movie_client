@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {AiOutlineCalendar} from "react-icons/ai"
 import {TfiTimer} from "react-icons/tfi"
 import {BiUserCheck} from "react-icons/bi"
-import axios from 'axios'
-import { useParams } from 'react-router-dom'
+// import axios from 'axios'
+// import { useParams } from 'react-router-dom'
 import moment from 'moment'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const BookingComponent = (props) => {
-  
+  const navigate= useNavigate()
+  const {idFilm}= useParams()
 
   return (
     <div className={"fjdkldjfklfjkslefdjsa"} style={{width: "100%"}}>
@@ -22,7 +24,7 @@ const BookingComponent = (props) => {
                         <div className={"fksdjkldjkldasj"}>{props?.data.genre}</div>
                         <div className={"fkdjskldjskldas"} style={{display: "flex", alignItems: "center", gap: 5}}>
                             <div className={"cvkjdsjkljsdklasas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff"}}>Trailer</div>
-                            <div className={"dajfhjhjhjashjas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", backgroundColor: "#e63757"}}>Mua vé</div>
+                            <div className={"dajfhjhjhjashjas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", backgroundColor: "#e63757", cursor: "pointer"}} onClick={()=> navigate("/booking/buy-ticket/"+ idFilm)}>Mua vé</div>
                         </div>
                         <br />
                         <p style={{cursor: "context-menu", color: "#fff"}} title={props?.data.desc}>{props?.data.desc}</p>
@@ -53,19 +55,19 @@ const BookingComponent = (props) => {
                     </div>
                     <div className={"fjkdjkljdkljsadasadfdsas"} style={{fontSize: 15}}>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff"}}>Diễn viên</div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Diễn viên: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 {props?.data?.actor}
                             </div>
                         </div>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff"}}>Đạo diễn</div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Đạo diễn: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 Hwang In-Ho
                             </div>
                         </div>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff"}}>Nhà sản xuất</div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Nhà sản xuất: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 {props?.data?.flimStudio}
                             </div>
@@ -89,7 +91,6 @@ const Trailer= (props)=> {
                     Trailer
                 </div>
                 <iframe title={"Trailer"} width="729" height="500" src={props?.trailer} allowFullScreen></iframe>
-
             </div>
         </div>
     )   
