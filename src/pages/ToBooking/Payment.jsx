@@ -1,5 +1,5 @@
 import axios from "axios";
-import { uniqueId } from "lodash";
+// import { uniqueId } from "lodash";
 import moment from "moment";
 import React from "react";
 // import { useContext } from "react";
@@ -11,7 +11,8 @@ import {v4 as uuidv4} from "uuid"
 
 const Payment = (props) => {
   const navigate= useNavigate()
-  const {timeStart, idRoom}= useLocation().state
+  const location = useLocation()
+  console.log(location.state)
   const {userLogin} = useSelector(state=>state.UserManageReducer)
   const checkout= async ()=> {
     const uuid= uuidv4()
@@ -20,9 +21,9 @@ const Payment = (props) => {
       url: "http://localhost:8080/book/checkout",
       method: "post",
       data: {
-        dateStart: timeStart,
-        id_room: idRoom,
-        playTimeId: 1,
+        dateStart: location.state?.timeStart,
+        id_room: location.state?.idRoom,
+        playTimeId: location?.state?.playTimeId,
         idFilm: props?.idFilm,
         userId: userLogin.id,
         seatIndex: parseInt(item),
@@ -100,12 +101,12 @@ const Payment = (props) => {
             borderRadius: 5,
           }}
         >
-          <div>{props?.detailFilm?.movieName}</div>
+          <div>{props?.detailFilm?.data?.movieName}</div>
           <div
             className={"jldfjskldjkfasas"}
             style={{ fontSize: 15, fontWeight: 600 }}
           >
-            {props?.detailCinema?.cinemaName}
+            {props?.detailFilm?.data?.cinemaName}
           </div>
           <div>
             Suất{" "}
@@ -113,14 +114,14 @@ const Payment = (props) => {
               className={"sgdjkldfjksldjsa"}
               style={{ fontWeight: 600, fontSize: 15 }}
             >
-              {moment(timeStart, "DD-MM-YYYY HH:mm:sss").format("HH:MM")}
+              {moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("HH:mm")}
             </span>{" "}
-            - {moment(timeStart, "DD-MM-YYYY HH:mm:sss").format("dddd")},{" "}
+            - {moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("dddd")},{" "}
             <span
               className={"sgdjkldfjksldjsa"}
               style={{ fontWeight: 600, fontSize: 15 }}
             >
-              {moment(timeStart, "DD-MM-YYYY HH:mm:sss").format("DD/MM")}
+              {moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("DD/MM")}
             </span>
           </div>
         </div>
@@ -212,8 +213,6 @@ const Payment = (props) => {
                 default: 
                   return
                 }
-                
-
             })
           }}
           className={"jdsldjskldjksldas"}

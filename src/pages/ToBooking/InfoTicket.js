@@ -89,7 +89,7 @@ const InfoTicket = () => {
         >
             <div style={{fontSize: 16, marginBottom: 12}}>Tổng giá trị</div>
             <div style={{fontSize: 16, marginBottom: 12, fontWeight: 600}}>
-                {numberWithCommas(parseInt(data?.price) * data?.seat?.length)}đ
+                {numberWithCommas(parseInt(parseInt(data?.price) * data?.seat?.length) + 5000)}đ
             </div>
         </div>
       </div>    

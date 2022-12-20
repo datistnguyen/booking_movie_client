@@ -20,6 +20,8 @@ const ToBooking = (props) => {
     const idFilm= useMemo(()=> window.location.pathname.split("/")[window.location.pathname.split("/").length - 2], [])
     const idCinema= useMemo(()=> window.location.pathname.split("/")[window.location.pathname.split("/").length - 1], [])
     // const [timeOutBooking, setTimeOutBooking]= useState(false)
+
+    const location = useLocation()
     useEffect(()=> {
         (async()=> {
             const res= await axios({
@@ -72,7 +74,8 @@ const ToBooking = (props) => {
                             setBookTime={setBookTime}
                             idFilm={idFilm}
                             idCinema={idCinema}
-
+                            timeStart={location.state?.timeStart}
+                            timePlayId={location.state?.timePlayId}
                         />} />
                         {/* <Route path={"/food-and-drink/:idFilm/:idCinema"} element={<FoodAndDrink
                             seatBook={seatBook}
@@ -93,7 +96,10 @@ const ToBooking = (props) => {
                             setBookTime={setBookTime} 
                             idFilm={idFilm}
                             idCinema={idCinema}  
+                            timeStart={location.state?.timeStart}
                             setIdBook={setIdBook}
+                            timePlayId={location.state?.timePlayId}
+
                         />} />
                         <Route path={"/ticket/detail/:idBook"} element={<InfoTicket
                             seatBook={seatBook}
@@ -105,6 +111,9 @@ const ToBooking = (props) => {
                             idFilm={idFilm}
                             idCinema={idCinema}  
                             idBook={idBook}
+                            timeStart={location.state?.timeStart}
+                            timePlayId={location.state?.timePlayId}
+
                         />} />
                     </Routes>
                 </div>
@@ -179,7 +188,8 @@ export default ToBooking
 const ChooseChair= (props)=> {
     const [infoRoom, setInfoRoom]= useState()
     const [seated, setSeated]= useState([])
-
+    const location= useLocation()
+    console.log(location.state)
      useEffect(()=> {
         (async()=> {
             const res= await axios({
@@ -192,7 +202,7 @@ const ChooseChair= (props)=> {
         })()
      }, [props?.idCinema, props?.idFilm])
     const navigate= useNavigate()
-    const {timeStart}= useLocation().state
+    
     
     return (
         <div className={"dfjskldjsklfjkldssa"} style={{width: "100%", display: "flex", justifyContent: "center", gap: 10}}>
@@ -203,9 +213,9 @@ const ChooseChair= (props)=> {
             </div>
             <div className={"fjddjskldjskljasklasas"} style={{width: "calc(100% / 3)"}}>
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5}}>
-                    <div>{props?.detailFilm?.movieName}</div>
-                    <div className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{props?.detailCinema?.cinemaName}</div>
-                    <div>Suất <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(timeStart).format("HH:MM")}</span> - {moment(timeStart).format("dddd")}, <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(timeStart).format("DD/MM")}</span></div>
+                    <div>{props?.detailFilm?.data?.movieName}</div>
+                    <div className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{props?.detailFilm?.data?.cinemaName}</div>
+                    <div>Suất <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("HH:mm")}</span> - {moment(props?.timeStart).format("dddd")}, <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("DD/MM")}</span></div>
                 </div>
                 <br />
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5}}>
@@ -228,7 +238,7 @@ const ChooseChair= (props)=> {
                     </div>
                 </div>
                 <br />
-                <div onClick={()=> navigate("/book/checkout/"+ props?.idFilm+ "/"+ props?.idCinema, {state: {timeStart: moment(timeStart).format("DD-MM-YYYY hh:mm:ss"), idRoom: infoRoom?.id}})} className={"jdsldjskldjksldas"} style={{width: "100%", color: "#fff", backgroundColor: "#12263f", borderRadius: 5, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: 600, cursor: "pointer", padding: "12px 10px", fontSize: 16 }}>
+                <div onClick={()=> navigate("/book/checkout/"+ props?.idFilm+ "/"+ props?.idCinema, {state: {timeStart: moment(props?.timeStart).format("DD-MM-YYYY hh:mm:ss"), idRoom: infoRoom?.id, playTimeId: location.state?.playTimeId}})} className={"jdsldjskldjksldas"} style={{width: "100%", color: "#fff", backgroundColor: "#12263f", borderRadius: 5, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: 600, cursor: "pointer", padding: "12px 10px", fontSize: 16 }}>
                     Tiếp tục
                 </div>
             </div>
@@ -305,7 +315,7 @@ const StructureCinema= memo((props)=> {
                 </div>
                 <div className={"fdkxfjdkldajlkdjka"} style={{display: "flex", maxWidth: 456, alignItems: "center", flexWrap: "wrap", marginLeft: 30, height: "max-content"}}>
                     {
-                        props?.infoRoom&& Array.from(Array(parseInt(props?.infoRoom?.seat)).keys()).map((item, key)=> <ComponentSeat index={key} seated={props?.seated} seatBook={props?.seatBook} setSeatBook={props?.setSeatBook} key={key} item={item} />)
+                        parseInt(props?.infoRoom?.seat) > 0&& Array.from(Array(parseInt(props?.infoRoom?.seat)).keys()).map((item, key)=> <ComponentSeat index={key} seated={props?.seated} seatBook={props?.seatBook} setSeatBook={props?.setSeatBook} key={key} item={item} />)
                     }
                 </div>
             </div>

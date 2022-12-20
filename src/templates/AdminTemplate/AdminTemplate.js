@@ -8,14 +8,16 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import {
   DesktopOutlined,
   FileOutlined,
-  PieChartOutlined,
   // TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import {SiCinema4D, SiGoogleclassroom } from "react-icons/si"
+import {SiCinema4D, SiGoogleclassroom,  } from "react-icons/si"
 import {AiOutlineCluster} from "react-icons/ai"
-import {CiDiscount1} from "react-icons/ci"
+import {CiDiscount1, CiTimer} from "react-icons/ci"
 import "./AdminTemplate.css"
+import {SlLogout} from "react-icons/sl"
+import Cookies from "js-cookie";
+
 const { Header, Content, Footer, Sider } = Layout;
 // const {Submenu} = Menu
 
@@ -147,6 +149,20 @@ export const AdminTemplate = (props) => {
                 <NavLink to="/admin/discount/addnew">Add Discount</NavLink>
               </Menu.Item>
             </SubMenu>
+            <SubMenu key="sub72" icon={<CiTimer />} title="Playtimes">
+              <Menu.Item key="132" icon={<CiTimer />}>
+                <NavLink to="/admin/playtimes">Playtimes</NavLink>
+              </Menu.Item>
+              <Menu.Item key="135" icon={<CiTimer />}>
+                <NavLink to="/admin/playtimes/addnew">Add Playtimes</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <Menu.Item key="sub721" icon={<SlLogout />} onClick={()=> {
+              Cookies.remove("uid")
+              return window.location.reload()
+            }}>
+              Logout
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout

@@ -47,7 +47,7 @@ const AddRoom = () => {
       <Input value={room.address} onChange={(e)=> setRoom(prev=> ({...prev, address: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Chỗ ngồi
+        Số chỗ ngồi
       </div>
       <Input value={room.seat} onChange={(e)=> setRoom(prev=> ({...prev, seat: e.target.value}))} />
       <br />

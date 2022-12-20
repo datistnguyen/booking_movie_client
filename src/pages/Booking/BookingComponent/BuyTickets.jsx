@@ -223,11 +223,14 @@ const ComponentTheater = (props) => {
       const res = await axios({
         url: "http://localhost:8080/playtime/detail/playtimes/" + idFilm,
         method: "get",
+        params: {
+          cinemaId: props?.id
+        }
       });
       const result = await res.data;
       return setPlayTime(result);
     })();
-  }, [idFilm]);
+  }, [idFilm, props?.id]);
   return (
     <div
       className={"fjfjakejakedjaklwas"}
@@ -293,12 +296,15 @@ const TimeFrame = (props) => {
               {moment(item?.timeStart).format("HH:mm")}
             </div>
           )}
+          {
+            console.log(item)
+          }
           {moment(item?.timeStart) >= moment() && (
             <div
               onClick={() =>
                 navigate(
                   "/book/choose-chair/" + props?.idFilm + "/" + props?.idCinema,
-                  { state: { timeStart: props?.timeStart } }
+                  { state: { timeStart: item?.timeStart, id_cinema: item?.id_cinema, playTimeId: item?.id} }
                 )
               }
               className={"dsjdjfgjkldjassd"}

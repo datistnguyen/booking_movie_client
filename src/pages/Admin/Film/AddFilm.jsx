@@ -1,5 +1,6 @@
-import { Button, Input, Select } from 'antd'
+import { Button, DatePicker, Input, Select } from 'antd'
 import axios from 'axios'
+import moment from 'moment'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -23,8 +24,8 @@ const AddFilm = () => {
     director: "",
     price: 0,
     img: "",
-    dateStart: "",
-    dateEnd: "", 
+    dateStart: new Date(),
+    dateEnd: new Date(), 
     country: "",
     flimStudio: "",
     version: 0,
@@ -80,12 +81,12 @@ const AddFilm = () => {
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
        Ngày bắt đầu
       </div>
-      <Input value={newFilm.dateStart} onChange={(e)=> setNewFilm(prev=> ({...prev, dateStart: e.target.value}))} />
+      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(newFilm.dateStart)} onChange={(e, value)=> setNewFilm(prev=> ({...prev, dateStart: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
         Ngày kết thúc
       </div>
-      <Input value={newFilm.dateEnd} onChange={(e)=> setNewFilm(prev=> ({...prev, dateEnd: e.target.value}))} />
+      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(newFilm.dateEnd)} onChange={(e, value)=> setNewFilm(prev=> ({...prev, dateEnd: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
         Quốc gia
@@ -115,7 +116,7 @@ const AddFilm = () => {
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
         Thuộc rạp
       </div>
-      <Select onChange={(e)=> setNewFilm(prev=> ({...prev, CinemaId: e}))} >
+      <Select onChange={(e)=> setNewFilm(prev=> ({...prev, CinemaId: e}))} style={{width: "100%"}}>
         {
           cinema?.map((item, key)=> <Option key={key} value={item.id}>{item.cinemaName}</Option>)
         }

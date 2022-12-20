@@ -3,18 +3,17 @@ import { Tabs } from "antd";
 import "../HomeMenu/HomeMenu.css";
 // import {NavLink}  from 'react-router-dom'
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
 export default function HomeMenu(props) {
-  console.log("cinema", props);
   const [tabPosition, setTabPosition] = useState("left");
   // eslint-disable-next-line
   const changeTabPosition = (e) => {
     setTabPosition(e.target.value);
   };
-  const navigate= useNavigate()
+  // const navigate= useNavigate()
   const renderCinema = () => {
     
     return props.arrCinema.map((cluster, index) => {
@@ -33,7 +32,6 @@ export default function HomeMenu(props) {
         >
           <Tabs tabPosition={tabPosition}>
             {cluster.Cinemas.map((Cinemas, index) => {
-              console.log(Cinemas.cinemaName, "list");
               return (
                 <TabPane
                   tab={
@@ -67,9 +65,10 @@ export default function HomeMenu(props) {
                           <div className="d-flex">
                             <img
                               style={{
-                                width: "150px",
-                                height: "180px",
+                                width: "120px",
+                                aspectRatio: 2 / 3,
                                 objectFit: "contain",
+                                borderRadius: 5
                               }}
                               src={Films.img}
                               alt=""
@@ -80,36 +79,31 @@ export default function HomeMenu(props) {
                               </h3>
                               <p className="text">{Films.country}</p>
                               <div className="grid grid-cols-6 gap-6">
-                                <p
+                                {/* <p
                                   style={{ whiteSpace: "nowrap" }}
                                   className="time"
                                 >
                                   {moment(Films.dateEnd).format("DD-MM-YYYY")}
-                                </p>
+                                </p> */}
                                 <div></div>
                               </div>
+                              <br />
+                              <br />
                               <div className={"fjdasjdkljdkass"} style={{display: "flex", alignItems:" center", gap: 16}}>
-                                <button
-                                  onClick={()=> navigate("/booking/movie-information/"+ Films.id)}
-                                  style={{
-                                    padding: "10px",
-                                    borderRadius: 5,
-                                    background: "#2e89ff",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                >
-                                  Xem thông tin phim
-                                </button>
-                                <button
-                                  style={{
-                                    padding: "10px",
-                                    borderRadius: 5,
-                                    background: "#f00",
-                                    whiteSpace: "nowrap",
-                                  }}
-                                >
-                                  Mua vé
-                                </button>
+
+                                <div style={{display: "flex", alignItems: "center", gap: 12}}>
+                                  {
+                                    Films?.PlayTimes?.map((item, key)=> <>
+                                     {
+                                      moment(new Date()).valueOf() <= moment(item.timeStart).valueOf() &&
+                                    <div key={key} style={{padding: 10, borderRadius: 80, cursor: "pointer", background: "#3a3b3c"}}>
+                                      {  moment(item.timeStart).format("DD-MM-YYYY")}
+                                    </div>
+                                     } 
+                                    </>
+                                    )  
+                                  }
+                                </div>
                                 
                               </div>
                               

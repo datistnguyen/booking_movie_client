@@ -28,8 +28,7 @@ export class baseService {
       method: "GET",
       data: model,
       headers: {
-        Authorization: `Bearer ${KEY_TOKEN}` + localStorage.getItem(KEY_TOKEN),
-        
+        Authorization: `Bearer ${KEY_TOKEN}` + localStorage.getItem(KEY_TOKEN),   
       },
     });
   };

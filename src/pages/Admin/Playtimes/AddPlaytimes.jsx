@@ -7,13 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert'
 const {Option}= Select
 
-const AddDiscount = () => {
+const AddPlaytime = () => {
   const navigate= useNavigate()
-  const [discount, setDiscount]= useState({
-    dateStart: new Date(),
-    dateEnd: new Date(),
+  const [playtime, setPlaytime]= useState({
+    timeStart: new Date(),
     filmId: "",
-    percent: ""
   })
   const [film, setFilm]= useState([])
   useEffect(()=> {
@@ -28,37 +26,27 @@ const AddDiscount = () => {
   }, [])
   const newDiscount= async ()=> {
     const res= await axios({
-        url: "http://localhost:8080/discount/create",
+        url: "http://localhost:8080/playtime/create",
         method: "post",
         data: {
-            ...discount
+            ...playtime
         }
     })
     // eslint-disable-next-line
     const result= await res.data
-    return swal("Thông báo", "Tạo mã giảm giá thành công", "success").then(()=> navigate("/admin/discount"))
+    return swal("Thông báo", "Tạo giờ phát sóng thành công", "success").then(()=> navigate("/admin/playtime"))
   }
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ngày bắt đầu
+        Thời gian chiếu
       </div>
-      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(discount.dateStart)} onChange={(e, value)=> setDiscount(prev=> ({...prev, dateStart: value}))} />
-      <br />
-      <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ngày kết thúc
-      </div>
-      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(discount.dateEnd)} onChange={(e, value)=> setDiscount(prev=> ({...prev, dateEnd: value}))} />
-      <br />
-      <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Giảm giá (%)
-      </div>
-      <Input value={discount.percent} onChange={(e)=> setDiscount(prev=> ({...prev, percent: e.target.value}))} />
+      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(playtime.dateStart)} onChange={(e, value)=> setPlaytime(prev=> ({...prev, dateStart: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
         Áp dụng cho phim
       </div>
-      <Select style={{width: "100%"}} onChange={(e)=> setDiscount(prev=> ({...prev, filmId: e}))}>
+      <Select style={{width: "100%"}} onChange={(e)=> setPlaytime(prev=> ({...prev, filmId: e}))}>
         {
             film?.map((item, key)=> <Option key={key} value={item.id}>{item.movieName}</Option>)
         }
@@ -72,4 +60,4 @@ const AddDiscount = () => {
   )
 }
 
-export default AddDiscount
+export default AddPlaytime
