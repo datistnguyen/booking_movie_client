@@ -189,6 +189,7 @@ const ChooseChair= (props)=> {
     const [infoRoom, setInfoRoom]= useState()
     const [seated, setSeated]= useState([])
     const location= useLocation()
+    const navigate= useNavigate()
     console.log(location.state)
      useEffect(()=> {
         (async()=> {
@@ -197,11 +198,14 @@ const ChooseChair= (props)=> {
                 method: "get"
             })
             const result= await res.data
+            if(result.runout=== true ) {
+                swal("Thông báo", "Phim đã hết phòng, bạn vui lòng đặt rạp khác", "success")
+                .then(()=> navigate(-1))
+            }
             setSeated(result.seated)
             return setInfoRoom(result.roomChosen)
         })()
-     }, [props?.idCinema, props?.idFilm])
-    const navigate= useNavigate()
+     }, [props?.idCinema, props?.idFilm, navigate])
     
     
     return (

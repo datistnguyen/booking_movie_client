@@ -277,7 +277,7 @@ const TimeFrame = (props) => {
         flexWrap: "wrap",
       }}
     >
-      {_.orderBy(props?.playTime, (a)=> parseInt(moment(a?.timeStart).valueOf()), ['asc'])?.filter(item=> moment(item?.timeStart).format("DD/MM") === props?.chooseDay)?.map((item, key) => (
+      {_.orderBy(_.uniqBy(props?.playTime, function(e) {return e.timeStart}), (a)=> parseInt(moment(a?.timeStart).valueOf()), ['asc'])?.filter(item=> moment(item?.timeStart).format("DD/MM") === props?.chooseDay)?.map((item, key) => (
         <Fragment key={key}>
           {moment(item?.timeStart) < moment() && (
             <div

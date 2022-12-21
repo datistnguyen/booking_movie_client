@@ -12,7 +12,7 @@ import FilmHot from './pages/FilmHot/FilmHot'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import Detail from './pages/Detail/Detail'
-import Checkout from './pages/Checkout/Checkout'
+// import Checkout from './pages/Checkout/Checkout'
 import Profile from "./pages/Profile/Profile"
 import Booking from './pages/Booking/Booking';
 import { Fragment } from 'react';
@@ -115,7 +115,7 @@ function App() {
         </section>
       </Fragment>
      }/>
-     <Route path="/checkout/:id" element={<Checkout />}/>
+     {/* <Route path="/checkout/:id" element={<Checkout />}/> */}
      <Route path="/admin/*" element={<Admin />}/>
     </Routes>
   </BrowserRouter>
