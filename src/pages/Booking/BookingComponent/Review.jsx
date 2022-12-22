@@ -17,13 +17,16 @@ const Review = () => {
   useEffect(()=> {
     (async()=> {
         const res= await axios({
-            url: "http://localhost:8080/comment",
-            method: "get"
+            url: "http://localhost:8080/comment/detail/"+ userLogin?.id,
+            method: "get",
+            params: {
+                idFilm: idFilm
+            }
         })
         const result= await res.data
         return setListComment(result)
     })()
-  }, [change])
+  }, [change, userLogin?.id, idFilm])
   const sendComment= async ()=> {
     const res= await axios({
         url: "http://localhost:8080/comment/create",
@@ -46,7 +49,7 @@ const Review = () => {
             <div className={"wrap-1-1"} style={{width: "100%", maxWidth: 736}}>
                 <div className={"wrap-review-1"} style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: "20px 0", background: "#242526"}}>
                     <div className={"review-zx"} style={{width: "100%", padding: 10, flex: "1 1 0"}}>
-                        <span className={"count-review"} style={{fontSize: 36, color: "#fff", fontWeight: 600}}>{listComment.length > 0 ? _.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length : "Chưa có đánh giá"}</span> 
+                        <span className={"count-review"} style={{fontSize: 36, color: "#fff", fontWeight: 600}}>{listComment.length > 0 ? _.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2) : "Chưa có đánh giá"}</span> 
                         
                             {
                                 listComment?.length > 0 && 
