@@ -4,6 +4,7 @@ import moment from 'moment'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import swal from 'sweetalert'
 const {Option}= Select
 const AddFilm = () => {
   const [cinema, setCinema]= useState([])
@@ -43,8 +44,10 @@ const AddFilm = () => {
         ...newFilm
       }
     })
+    // eslint-disable-next-line
     const result= await res.data
-    return window.location.reload()
+    swal("Chúc mừng", "Bạn đã cập nhật tài khoản thành công", "success")
+    .then(()=> window.location.reload())
   }
   return (
     <div className={"add-film-page"}>

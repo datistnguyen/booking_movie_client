@@ -38,6 +38,8 @@ const ListRoom = (props) => {
     })
     const result= await res.data
     setData(data?.filter(item=> parseInt(item.id) !== parseInt(id)))
+    swal("Chúc mừng", "Bạn đã xóa rạp này thành công", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (

@@ -55,7 +55,7 @@ export default function Login(props) {
             name="password"
             value={Formik.values.password}
             onChange={Formik.handleChange}
-            type="text"
+            type="password"
             placeholder="PASSWORD"
           ></input>
           <p style={{ fontSize: "15px", fontWeight: "600" }}>

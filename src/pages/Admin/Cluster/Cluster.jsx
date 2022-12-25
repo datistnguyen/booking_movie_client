@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
-import {AiOutlineSearch} from "react-icons/ai"
+// import {AiOutlineSearch} from "react-icons/ai"
 import "../Users/ListUser/ListUser.css"
 const ListCluster = (props) => {
     const [idCluster, setIdCluster]= useState()
@@ -41,10 +41,10 @@ const ListCluster = (props) => {
   return (
     <>
       <div style={{display: "flex", justifyContent:" center", alignItems: "center"}}>
-        <Input placeholder={"Tìm kiếm người dùng"} />
+        {/* <Input placeholder={"Tìm kiếm người dùng"} />
         <div style={{width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", background: "#fff", cursor: "pointer"}}>
             <AiOutlineSearch style={{width: 20, height: 20}} />
-        </div>
+        </div> */}
       </div>
       <br />
       <table style={{width: '100%', background: "#fff"}}>
@@ -104,7 +104,7 @@ const InfoDetailUser= (props)=> {
       return setData(result)
     })()
   }, [props?.idCluster])
-  const updateCinema= async()=> {
+  const updateCluster= async()=> {
     const res= await axios({
       url: "http://localhost:8080/cluster/update/"+  props?.idCluster,
       method: "patch",
@@ -113,13 +113,14 @@ const InfoDetailUser= (props)=> {
       }
     })
     const result= await res.data
-    window.location.reload()
+    swal("Chúc mừng", "Bạn đã cập nhật cụm rạp thành công", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
     <Modal title="Sửa thông tin cụm rạp" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
-      updateCinema()
+      updateCluster()
     }} onCancel={props?.handleCancel}>
       <div className={"label-item"} style={{marginBottom: 8}}>Tên cụm rạp</div>
       <Input value={data?.ClusterName} onChange={(e)=> setData(prev=> ({...prev, ClusterName: e.target.value}))} />

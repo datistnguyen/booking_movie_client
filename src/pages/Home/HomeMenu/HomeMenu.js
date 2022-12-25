@@ -3,11 +3,13 @@ import { Tabs } from "antd";
 import "../HomeMenu/HomeMenu.css";
 // import {NavLink}  from 'react-router-dom'
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
 export default function HomeMenu(props) {
+  const navigate= useNavigate()
   const [tabPosition, setTabPosition] = useState("left");
   // eslint-disable-next-line
   const changeTabPosition = (e) => {
@@ -30,10 +32,12 @@ export default function HomeMenu(props) {
           }
           key={index}
         >
-          <Tabs tabPosition={tabPosition}>
+          <Tabs style={{overflow: "hidden"}} className={"list-film-c"} tabPosition={tabPosition}>
             {cluster.Cinemas.map((Cinemas, index) => {
               return (
                 <TabPane
+                  className="list-film-w-c scrollbar style-1"
+                  style={{maxHeight: 500, overflow: "auto"}}
                   tab={
                     <div style={{ width: "300px", display: "flex" }}>
                       <img
@@ -46,7 +50,7 @@ export default function HomeMenu(props) {
                       <div
                         title={`${Cinemas.cinemaName}-${Cinemas.address}`}
                         className="text-left ml-2"
-                        style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+                        style={{ overflow: "hidden", textOverflow: "ellipsis",color :"#fff" }}
                       >
                         {Cinemas.cinemaName}-{Cinemas.address}
                         <p style={{ color: "red" }}>chi tiết</p>
@@ -60,7 +64,7 @@ export default function HomeMenu(props) {
                       <Fragment key={index}>
                         <div
                           className="my-2"
-                          style={{ display: "flex", paddingBottom: "20px" }}
+                          style={{ display: "flex", paddingBottom: "20px"}}
                         >
                           <div className="d-flex">
                             <img
@@ -93,11 +97,16 @@ export default function HomeMenu(props) {
 
                                 <div style={{display: "flex", alignItems: "center", gap: 12}}>
                                   {
-                                    Films?.PlayTimes?.map((item, key)=> <>
+                                    Films?.PlayTimes?.filter(item=> moment(item?.timeStart, "YYYY-MM-DD HH:mm:ss").format("DD-MM-YYYY") === moment(new Date()).format("DD-MM-YYYY") && moment(item?.timeStart, "YYYY-MM-DD HH:mm:ss").valueOf() >= moment(new Date()).valueOf())?.map((item, key)=> <>
                                      {
                                       moment(new Date()).valueOf() <= moment(item.timeStart).valueOf() &&
-                                    <div key={key} style={{padding: 10, borderRadius: 80, cursor: "pointer", background: "#3a3b3c"}}>
-                                      {  moment(item.timeStart).format("DD-MM-YYYY")}
+                                    <div onClick={() =>
+                                      navigate(
+                                        "/book/choose-chair/" + item?.filmId + "/" + Cinemas?.id,
+                                        { state: { timeStart: item?.timeStart, id_cinema: Cinemas?.id, playTimeId: item?.id} }
+                                      )
+                                    } key={key} style={{padding: 10, borderRadius: 80, cursor: "pointer", background: "#3a3b3c", color: "#fff"}}>
+                                      {  moment(item.timeStart).format("HH:mm:ss")}
                                     </div>
                                      } 
                                     </>
@@ -142,7 +151,7 @@ export default function HomeMenu(props) {
         style={{
           width: "100%",
           border: "solid 1px #f7f8f9",
-          borderRadius: 15,
+          borderRadius: 10,
           marginBottom: "70px",
         }}
       >

@@ -5,7 +5,6 @@ import "../Film/Film.css";
 // import {history} from "../../App"
 export default function Film(props) {
   const { movie } = props;
-  console.log("props",props)
   return (
     <div className="film px-3 mt-5">
       <div
@@ -41,13 +40,13 @@ export default function Film(props) {
         <div className="card-body" style={{ alignItems: "center" }}>
           <h5
             className="card-title text-center text-white"
-            style={{ width: "70%", height: "20px", fontSize: "13px" }}
+            style={{ width: "70%", height: "20px", fontSize: "13px", fontWeight: 600, whiteSpace: "nowrap" }}
           >
             {movie.movieName}
           </h5>
           <p
             className="card-text text-center text-white"
-            style={{ width: "70%", height: "30px", fontSize: "15px" }}
+            style={{ width: "70%", height: "30px", fontSize: "15px", whiteSpace: "nowrap"}}
           >
             {moment(movie.dateStart).format("DD/MM/YYYY")}
           </p>

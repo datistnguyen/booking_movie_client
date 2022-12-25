@@ -2,6 +2,7 @@ import { Button, Input, Select } from 'antd'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import swal from 'sweetalert'
 const {Option}= Select
 
 const AddRoom = () => {
@@ -32,7 +33,8 @@ const AddRoom = () => {
     })
     // eslint-disable-next-line
     const result= await res.data
-    return window.location.reload()
+    swal("Chúc mừng", "Bạn đã tạo phòng thành công", "success")
+    .then(()=> window.location.reload())
   }
   return (
     <div className={"add-film-page"}>

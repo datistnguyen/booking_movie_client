@@ -2,6 +2,7 @@ import { Button, Input } from 'antd'
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
+import swal from 'sweetalert'
 const AddCluster = () => {
   const [cluster, setCluster]= useState({
     ClusterName: "",
@@ -17,7 +18,8 @@ const AddCluster = () => {
         }
     })
     const result= await res.data
-    return window.location.reload()
+    swal("Chúc mừng", "Bạn đã tạo cụm rạp thành công", "success")
+    .then(()=> window.location.reload())
   }
   return (
     <div className={"add-film-page"}>

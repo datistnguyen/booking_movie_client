@@ -6,13 +6,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import swal from 'sweetalert'
-import { numberWithCommas } from "./ToBooking";
+import { ComponentCounter, numberWithCommas } from "./ToBooking";
 import {v4 as uuidv4} from "uuid"
 
 const Payment = (props) => {
   const navigate= useNavigate()
   const location = useLocation()
-  console.log(location.state)
   const {userLogin} = useSelector(state=>state.UserManageReducer)
   const checkout= async ()=> {
     const uuid= uuidv4()
@@ -27,15 +26,14 @@ const Payment = (props) => {
         idFilm: props?.idFilm,
         userId: userLogin.id,
         seatIndex: parseInt(item),
-        id_book: uuid
+        id_book: uuid,
+        time_created: moment(new Date()).format("DD-MM-YYYY")
         // seatIndex: 
       }
     })))
     const result= await Promise.all(arrPromise)
     props?.setIdBook(result[0]?.data?.id_book)
     return result[0]?.data?.id_book
-    // return result[0]
-    // 
 
   }
   return (
@@ -150,7 +148,7 @@ const Payment = (props) => {
               className={"fzjldsjkfhdjkdhsdsa"}
               style={{ fontSize: 18, fontWeight: 600 }}
             >
-              {numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length + 5000) || "_"}đ
+              {numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length * (1 - (parseInt(props?.discount) || 0) /100 ) + 5000) || "_"}đ
             </div>
           </div>
           <div>|</div>
@@ -166,17 +164,7 @@ const Payment = (props) => {
             >
               Thời gian giữ ghế
             </div>
-            <div
-              className={"fzjldsjkfhdjkdhsdsa"}
-              style={{
-                fontSize: 18,
-                fontWeight: 600,
-                direction: "rtl",
-                textAlign: "right",
-              }}
-            >
-              {moment.utc(moment.duration(parseInt(props?.bookTime), "seconds").as("milliseconds")).format("mm:ss")}
-            </div>
+            <ComponentCounter counter={props?.bookTime} />
           </div>
         </div>
         <br />
@@ -195,24 +183,40 @@ const Payment = (props) => {
         <br />
         <div
           onClick={async ()=> {
-            const result= await checkout()
-            swal("Chúc mừng!", "Bạn đã thanh toán thành công!", {
+            swal("Notice", "Are you sure want to checkout ?", {
               buttons: {
-                backtoHome: "Ok",
-                infoTicket: "Thông tin vé"
+                success: "Yes",
+                failed: "No"
               }
             })
-            .then((value)=> {
+            .then(async value=> {
               switch(value) {
-                case "backtoHome": 
-                  navigate("/")
-                  break;
-                case "infoTicket" :
-                  navigate(`/book/ticket/detail/${result}`)
-                  break;
+                case "success":
+                  const result= await checkout()
+                  swal("Chúc mừng!", "Bạn đã thanh toán thành công!","success", {
+                    buttons: {
+                      backtoHome: "Ok",
+                      infoTicket: "Thông tin vé"
+                    }
+                  })
+                  .then((value)=> {
+                    switch(value) {
+                      case "backtoHome": 
+                        navigate("/")
+                        break;
+                      case "infoTicket" :
+                        navigate(`/book/ticket/detail/${result}`)
+                        break;
+                      default: 
+                        return
+                      }
+                  })
+                  break
+                case "failed":
+                  break
                 default: 
-                  return
-                }
+                  break
+              }
             })
           }}
           className={"jdsldjskldjksldas"}

@@ -31,21 +31,7 @@ const ListUser = (props) => {
       })()
     }, [])
     // eslint-disable-next-line
-    const columns = [
-        {
-          title: 'Email',
-        },
-        {
-          title: 'Username',
-        },
-        {
-          title: 'Address',
-        },
-        {
-          title: 'Phonenumber',
-         
-        }
-      ];
+   
   const deleteUser= async (id)=> {
     const res= await axios({
       url: "http://localhost:8080/auth/delete/"+ id,
@@ -58,10 +44,10 @@ const ListUser = (props) => {
   return (
     <>
       <div style={{display: "flex", justifyContent:" center", alignItems: "center"}}>
-        <Input placeholder={"Tìm kiếm người dùng"} />
+        {/* <Input placeholder={"Tìm kiếm người dùng"} />
         <div style={{width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", background: "#fff", cursor: "pointer"}}>
             <AiOutlineSearch style={{width: 20, height: 20}} />
-        </div>
+        </div> */}
       </div>
       <br />
       <table style={{width: '100%', background: "#fff"}}>
@@ -135,7 +121,8 @@ const InfoDetailUser= (props)=> {
       }
     })
     const result= await res.data
-    window.location.reload()
+    swal("Chúc mừng", "Bạn đã cập nhật tài khoản thành công", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (

@@ -37,7 +37,7 @@ export default function Blog() {
                 <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div className="showcases__content" >
                         <div className="showcase__item">
-                            <img src="./img/endgame.jpg" />
+                            <img alt="" src="./img/endgame.jpg" />
 
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
@@ -52,7 +52,7 @@ export default function Blog() {
                             </div>
                         </div>
                         <div className="showcase__item">
-                            <img src="./img/stranger-things-bicycle-lights-children.jpg" />
+                            <img alt="" src="./img/stranger-things-bicycle-lights-children.jpg" />
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
                                     <a href="../img/showcase_img_2.webp" data-fancybox="gallery">
@@ -66,7 +66,7 @@ export default function Blog() {
                             </div>
                         </div>
                         <div className="showcase__item">
-                            <img src="./img/th (3).jpg" />
+                            <img alt="" src="./img/th (3).jpg" />
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
                                     <a href="../img/showcase_img_2.webp" data-fancybox="gallery">
@@ -80,7 +80,7 @@ export default function Blog() {
                             </div>
                         </div>
                         <div className="showcase__item">
-                            <img src="./img/th (4).jpg" />
+                            <img alt="" src="./img/th (4).jpg" />
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
                                     <a href="../img/showcase_img_2.webp" data-fancybox="gallery">
@@ -94,7 +94,7 @@ export default function Blog() {
                             </div>
                         </div>
                         <div className="showcase__item">
-                            <img src="./img/bgmovie.jpg" />
+                            <img alt="" src="./img/bgmovie.jpg" />
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
                                     <a href="../img/showcase_img_2.webp" data-fancybox="gallery">
@@ -108,7 +108,7 @@ export default function Blog() {
                             </div>
                         </div>
                         <div className="showcase__item">
-                            <img src="./img/anh2.png" />
+                            <img alt="" src="./img/anh2.png" />
                             <div className="showcase__overlay" style={{ width: '115%', height: '100%' }}>
                                 <div className="showcase__icon">
                                     <a href="../img/showcase_img_2.webp" data-fancybox="gallery">
@@ -161,9 +161,9 @@ export default function Blog() {
             </div>
 
             <div className="image animate__animated animate__slideInRight" style={{ marginTop: "80px" }}>
-                <img src="./img/mobile.png" alt="" />
-                <img className="mobile_home" src="./img/th (5).jpg"></img>
-                <img className="mobile_end" src="./img/th (6).jpg"></img>
+                <img alt="" src="./img/mobile.png" />
+                <img alt="" className="mobile_home" src="./img/th (5).jpg"></img>
+                <img alt="" className="mobile_end" src="./img/th (6).jpg"></img>
             </div>
         </div>
     </div>

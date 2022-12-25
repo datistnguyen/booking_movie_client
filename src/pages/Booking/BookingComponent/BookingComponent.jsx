@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {AiOutlineCalendar} from "react-icons/ai"
 import {TfiTimer} from "react-icons/tfi"
 import {BiUserCheck} from "react-icons/bi"
@@ -10,24 +10,26 @@ import { useNavigate, useParams } from 'react-router-dom'
 const BookingComponent = (props) => {
   const navigate= useNavigate()
   const {idFilm}= useParams()
-
+  useEffect(()=> {
+    props?.setChange(prev=> !prev)
+  }, [idFilm])
   return (
-    <div className={"fjdkldjfklfjkslefdjsa"} style={{width: "100%"}}>
-        <div className={"fjdhjskjhdjkashas"} style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), url(${props?.data.img})`, gap: 16, padding: '20px 0'}}>
-            <div className='dsldudhjkhsdajkdssa' style={{width: '100%', maxWidth: 960, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10}}>
-                <div className={"fjslkadjkdsjaklsas"}>
-                    <img style={{width: "200px", height: "300px", borderRadius: 5, border: '1px solid #fff'}} src={props?.data.img} alt="" />
+    <div className={"booking-c"} style={{width: "100%"}}>
+        <div className={"booking-c-wrap"} style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.7) 100%), url(${props?.data?.img})`, gap: 16, padding: '20px 0'}}>
+            <div className='book-1' style={{width: '100%', maxWidth: 960, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10}}>
+                <div className={"book-1"}>
+                    <img style={{width: "200px", height: "300px", borderRadius: 5, border: '1px solid #fff'}} src={props?.data?.img} alt="" />
                 </div>
-                <div className={"zklsdjskljklsjaasdas"} style={{flex: "1 1 0", display: 'flex', gap: 10}}>
-                    <div className={"jskdjskdjkldsajssa"} style={{}}>
-                        <div className={"fjdfjlajjdlsas"} style={{fontSize: 26, fontWeight: 600, color: "#fff"}}>{props?.data?.movieName}</div>
-                        <div className={"fksdjkldjkldasj"}>{props?.data.genre}</div>
+                <div className={"book-12"} style={{flex: "1 1 0", display: 'flex', gap: 10}}>
+                    <div className={"book-13"} style={{}}>
+                        <div className={"fjdfjlajjdlsas"} style={{fontSize: 26, fontWeight: 600, color: "#fff", cursor: "context-menu"}}>{props?.data?.movieName}</div>
+                        <div className={"fksdjkldjkldasj"}>{props?.data?.genre}</div>
                         <div className={"fkdjskldjskldas"} style={{display: "flex", alignItems: "center", gap: 5}}>
-                            <div className={"cvkjdsjkljsdklasas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff"}}>Trailer</div>
+                            <div className={"cvkjdsjkljsdklasas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", cursor: "context-menu"}}>Trailer</div>
                             <div className={"dajfhjhjhjashjas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", backgroundColor: "#e63757", cursor: "pointer"}} onClick={()=> navigate("/booking/buy-ticket/"+ idFilm)}>Mua vé</div>
                         </div>
                         <br />
-                        <p style={{cursor: "context-menu", color: "#fff"}} title={props?.data.desc}>{props?.data.desc}</p>
+                        <p style={{cursor: "context-menu", color: "#fff"}} title={props?.data?.desc}>{props?.data?.desc}</p>
                         <br />
                         <div className={"fjklfjkdjslsasa"} style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: 5, width: "100%"}}>
                             <div className={"fgdnfjkldjskldad"}>
@@ -63,7 +65,7 @@ const BookingComponent = (props) => {
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
                             <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Đạo diễn: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
-                                Hwang In-Ho
+                                {props?.date?.director}
                             </div>
                         </div>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
@@ -77,7 +79,7 @@ const BookingComponent = (props) => {
             </div>
             {/*  */}
         </div>
-        <Trailer trailer={props?.data.trailer} />
+        <Trailer trailer={props?.data?.trailer} />
     </div>
   )
 }

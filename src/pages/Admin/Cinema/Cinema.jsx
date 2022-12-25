@@ -46,9 +46,9 @@ const ListCinema = (props) => {
          
         }
       ];
-  const deleteUser= async (id)=> {
+  const deleteCinema= async (id)=> {
     const res= await axios({
-      url: "http://localhost:8080/auth/delete/"+ id,
+      url: "http://localhost:8080/cinema/delete/"+ id,
       method: "delete"
     })
     const result= await res.data
@@ -58,10 +58,10 @@ const ListCinema = (props) => {
   return (
     <>
       <div style={{display: "flex", justifyContent:" center", alignItems: "center"}}>
-        <Input placeholder={"Tìm kiếm người dùng"} />
+        {/* <Input placeholder={"Tìm kiếm người dùng"} />
         <div style={{width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", background: "#fff", cursor: "pointer"}}>
             <AiOutlineSearch style={{width: 20, height: 20}} />
-        </div>
+        </div> */}
       </div>
       <br />
       <table style={{width: '100%', background: "#fff"}}>
@@ -88,8 +88,8 @@ const ListCinema = (props) => {
                   setIdCinema(item.id)
                 }}>Chỉnh sửa</Button>
                 <Button onClick={()=> {
-                  deleteUser(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa tài khoản này thành công", "success")
+                  deleteCinema(item.id);
+                  swal("Chúc mừng", "Bạn đã xóa rạp này thành công", "success")
                 }}>Xóa</Button>
               </div>
             </td>

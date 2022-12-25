@@ -10,18 +10,37 @@ import { useState } from 'react'
 import moment from 'moment'
 import swal from 'sweetalert'
 import InfoTicket from './InfoTicket'
+import * as Scroll from 'react-scroll';
+import _ from 'lodash'
 
 const ToBooking = (props) => {
+    const [discount, setDiscount]= useState(0)
+    const scroll= Scroll.animateScroll
     const [idBook, setIdBook]= useState()
     const navigate= useNavigate()
     const [bookTime, setBookTime]= useState(300)
     const [detailFilm, setDetailFilm]= useState()
     const [detailCinema, setDetailCinema]= useState()
+    const location = useLocation()
     const idFilm= useMemo(()=> window.location.pathname.split("/")[window.location.pathname.split("/").length - 2], [])
     const idCinema= useMemo(()=> window.location.pathname.split("/")[window.location.pathname.split("/").length - 1], [])
     // const [timeOutBooking, setTimeOutBooking]= useState(false)
-
-    const location = useLocation()
+    useEffect(()=> {
+        (async()=> {
+            const res= await axios({
+                url: "http://localhost:8080/discount/by/film",
+                method: "get",
+                params: {
+                    idFilm
+                }
+            })
+            const result= await res.data
+            return setDiscount(result?.filter(item=> moment(item?.dateStart, "YYYY-MM-DD HH:mm:ss").valueOf() <= moment(new Date()).valueOf() && moment(item?.dateEnd, "YYYY-MM-DD HH:mm:ss").valueOf() >= moment(new Date()).valueOf())?.[0]?.percent || 0)
+        })()
+    }, [idFilm])
+    useEffect(()=> {
+        scroll.scrollToTop()
+    }, [scroll])
     useEffect(()=> {
         (async()=> {
             const res= await axios({
@@ -60,12 +79,13 @@ const ToBooking = (props) => {
     })
     const [seatBook, setSeatBook]= useState([])
     return (
-        <div className={"jkldsjklfjkdas"} style={{width: "100%", position: "relative", top: 60}}>
+        <div className={"component-wrap-book-ticket"} style={{width: "100%", position: "relative", top: 60}}>
             <Header idBook={idBook} />
-            <div className={"skdljfkdjaksjas"} style={{display: "flex", justifyContent: "center", alignItems: "center", background: "#f9fbfd"}}>
-                <div className={"fdzjkkfjkldzjdas"} style={{width:" 100%", maxWidth: 1140, background: "#f9fbfd", padding: "20px"}}>
+            <div className={"componet-book-ticket"} style={{display: "flex", justifyContent: "center", alignItems: "center", background: "#f9fbfd"}}>
+                <div className={"component-1"} style={{width:" 100%", maxWidth: 1140, background: "#f9fbfd", padding: "20px"}}>
                     <Routes>
                         <Route path={"/choose-chair/:idFilm/:idCinema"} element={<ChooseChair 
+                            discount={discount}
                             seatBook={seatBook}
                             setSeatBook={setSeatBook}
                             detailCinema={detailCinema}
@@ -88,6 +108,7 @@ const ToBooking = (props) => {
                             idCinema={idCinema}  
                          />} /> */}
                         <Route path={"/checkout/:idFilm/:idCinema"} element={<Payment 
+                            discount={discount}
                             seatBook={seatBook}
                             setSeatBook={setSeatBook}
                             detailCinema={detailCinema}
@@ -190,7 +211,6 @@ const ChooseChair= (props)=> {
     const [seated, setSeated]= useState([])
     const location= useLocation()
     const navigate= useNavigate()
-    console.log(location.state)
      useEffect(()=> {
         (async()=> {
             const res= await axios({
@@ -225,20 +245,18 @@ const ChooseChair= (props)=> {
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5}}>
                     <div>Phòng chiếu</div>
                     <div className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{infoRoom?.RoomName}</div>
-                    <div>Ghế: <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{props?.seatBook?.map((item, key)=> <Fragment key={key}>{item}, </Fragment>)}</span></div>
+                    <div>Ghế: <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{props?.seatBook?.map((item, key)=> <Fragment key={key}>{item}{parseInt(key) === props?.seatBook?.length - 1 ? "" : ","}</Fragment>)}</span></div>
                 </div>
                 <br />
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5, display: "flex", justifyContent: "space-between", alignItems: "center",}}>
                     <div className={"fdajklfjsakldjaks"}>
                         <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600}}>Tổng đơn hàng</div>
-                        <div className={"fzjldsjkfhdjkdhsdsa"} style={{fontSize: 18, fontWeight: 600}}>{numberWithCommas(parseInt(props?.detailFilm?.data?.price) * parseInt(props?.seatBook.length)) || "_"}đ</div>
+                        <div className={"fzjldsjkfhdjkdhsdsa"} style={{fontSize: 18, fontWeight: 600}}>{numberWithCommas(parseInt(props?.detailFilm?.data?.price) * parseInt(props?.seatBook.length) * ((1 - parseInt(props?.discount) / 100))) || "_"}đ</div>
                     </div>
                     <div>|</div>
                     <div className={"fdajklfjsakldjaks"} style={{direction: "rtl"}}>
                         <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600, direction: "rtl", textAlign: "right"}}>Thời gian giữ ghế</div>
-                        <div className={"fzjldsjkfhdjkdhsdsa"} style={{fontSize: 18, fontWeight: 600, direction: "rtl", textAlign: "right"}}>
-                            {moment.utc(moment.duration(parseInt(props?.bookTime), "seconds").as("milliseconds")).format("mm:ss")}
-                        </div>
+                        <ComponentCounter counter={props?.bookTime} />
                     </div>
                 </div>
                 <br />
@@ -317,17 +335,19 @@ const StructureCinema= memo((props)=> {
                         M
                     </div>
                 </div>
-                <div className={"fdkxfjdkldajlkdjka"} style={{display: "flex", maxWidth: 456, alignItems: "center", flexWrap: "wrap", marginLeft: 30, height: "max-content"}}>
-                    {
-                        parseInt(props?.infoRoom?.seat) > 0&& Array.from(Array(parseInt(props?.infoRoom?.seat)).keys()).map((item, key)=> <ComponentSeat index={key} seated={props?.seated} seatBook={props?.seatBook} setSeatBook={props?.setSeatBook} key={key} item={item} />)
-                    }
+                <div style={{flex: '1 1 0', alignItems: "flex-start"}} className="c-flex-center">
+                    <div className={"component-list-chair-in-room"} style={{display: "flex", maxWidth: 456, alignItems: "center", flexWrap: "wrap", marginLeft: 30, height: "max-content"}}>
+                        {
+                            parseInt(props?.infoRoom?.seat) > 0&& Array.from(Array(parseInt(props?.infoRoom?.seat)).keys()).map((item, key)=> <ComponentSeat index={key} seated={props?.seated} seatBook={props?.seatBook} setSeatBook={props?.setSeatBook} key={key} item={item} />)
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     )
 })
 
-const ComponentSeat= (props)=> {
+const ComponentSeat= memo((props)=> {
     const seatBook= ()=> {
        if(props?.seatBook?.includes(parseInt(props?.item))) {
             return props?.setSeatBook(props?.seatBook?.filter(item=> parseInt(item) !== parseInt(props?.index)))
@@ -349,10 +369,18 @@ const ComponentSeat= (props)=> {
 
         </div>
     )
-}
+})
 
 export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function ComponentCounter({counter}) {
+    return (
+        <div className={"counter-booking-ticket"} style={{fontSize: 18, fontWeight: 600, direction: "rtl", textAlign: "right"}}>
+            {moment.utc(moment.duration(parseInt(counter), "seconds").as("milliseconds")).format("mm:ss")}
+        </div>
+    )
 }
 
 

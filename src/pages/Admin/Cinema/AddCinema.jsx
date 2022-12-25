@@ -2,6 +2,7 @@ import { Button, Input, Select } from 'antd'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import swal from 'sweetalert'
 const {Option}= Select
 const AddCinema = () => {
   const [cinema, setCinema]= useState({
@@ -30,7 +31,8 @@ const AddCinema = () => {
         }
     })
     const result= await res.data
-    return window.location.reload()
+    swal("Chúc mừng", "Bạn đã tạo rạp thành công", "success")
+    .then(()=> window.location.reload())
   }
   return (
     <div className={"add-film-page"}>

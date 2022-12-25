@@ -6,10 +6,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import _ from "lodash"
+import * as Scroll from 'react-scroll';
+import { useSelector } from "react-redux";
 
 const BuyTickets = (props) => {
+  const scroll = Scroll.animateScroll;
+  const { idFilm } = useParams();
   const [listCluster, setListCluster] = useState([]);
   const [chooseDay, setChooseDay] = useState(moment(new Date()).format("DD/MM"));
+  useEffect(()=> {
+    scroll.scrollToTop()
+  }, [scroll])
   useEffect(() => {
     (async () => {
       const res = await axios({
@@ -110,7 +117,7 @@ const BuyTickets = (props) => {
             <span>Nhấn vào suất chiếu để tiến hành mua vé</span>
           </div>
           <br />
-          {listCluster?.map((item, key) => (
+          {listCluster?.filter(item=> item?.Cinemas?.filter(item=> item?.Films?.filter(item2=> item2?.PlayTimes?.length > 0  && item2?.PlayTimes?.filter(item3=> parseInt(item3?.FilmId) === parseInt(idFilm))?.length > 0 && item2?.PlayTimes?.filter(item3=> parseInt(moment(item3?.timeStart).valueOf()) >= parseInt(moment(new Date()).valueOf()))?.length > 0 && item2?.PlayTimes?.filter(item3=> moment(item3?.timeStart).format("DD/MM") === chooseDay)?.length > 0)?.length > 0)?.length > 0)?.map((item, key) => (
             <Fragment key={key}>
               <ComponentCinema {...item} price={props?.data?.price} chooseDay={chooseDay} />
               <br />
@@ -205,7 +212,7 @@ const ComponentCinema = (props) => {
           className={"fjfjsdklajskljfklsejsaad"}
           style={{ width: "100%", background: "#fff" }}
         >
-          {props?.Cinemas?.map((item, key) => (
+          {props?.Cinemas?.filter(item=> item?.Films?.filter(item2=> item2?.PlayTimes?.length > 0 && item2?.PlayTimes?.filter(item3=> moment(item3?.timeStart).valueOf() > moment(new Date()).valueOf())?.length > 0)?.length > 0)?.map((item, key) => (
             <ComponentTheater price={props?.price} key={key} {...item} chooseDay={props?.chooseDay} />
           ))}
         </div>
@@ -250,14 +257,16 @@ const ComponentTheater = (props) => {
           <div
             style={{ fontSize: 14, fontWeight: 600, marginBottom: 10 }}
           ></div>
-
-          <TimeFrame
-            chooseDay={props?.chooseDay}
-            price={props?.price}
-            idCinema={props?.id}
-            idFilm={idFilm}
-            playTime={playTime}
-          />
+          {
+            playTime?.length > 0 &&
+            <TimeFrame
+              chooseDay={props?.chooseDay}
+              price={props?.price}
+              idCinema={props?.id}
+              idFilm={idFilm}
+              playTime={playTime}
+            />
+          }
         </div>
       )}
     </div>
@@ -266,6 +275,7 @@ const ComponentTheater = (props) => {
 
 const TimeFrame = (props) => {
   const navigate = useNavigate();
+  const {userLogin} = useSelector(state=>state.UserManageReducer)
 
   return (
     <div
@@ -296,16 +306,20 @@ const TimeFrame = (props) => {
               {moment(item?.timeStart).format("HH:mm")}
             </div>
           )}
-          {
-            console.log(item)
-          }
           {moment(item?.timeStart) >= moment() && (
             <div
               onClick={() =>
-                navigate(
-                  "/book/choose-chair/" + props?.idFilm + "/" + props?.idCinema,
-                  { state: { timeStart: item?.timeStart, id_cinema: item?.id_cinema, playTimeId: item?.id} }
-                )
+                {
+                  if(userLogin?.id) {
+                  navigate(
+                    "/book/choose-chair/" + props?.idFilm + "/" + props?.idCinema,
+                    { state: { timeStart: item?.timeStart, id_cinema: item?.id_cinema, playTimeId: item?.id} }
+                  )
+                  }
+                  else {
+                    navigate("/login")
+                  }
+                }
               }
               className={"dsjdjfgjkldjassd"}
               style={{

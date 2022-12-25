@@ -17,6 +17,8 @@ import {CiDiscount1, CiTimer} from "react-icons/ci"
 import "./AdminTemplate.css"
 import {SlLogout} from "react-icons/sl"
 import Cookies from "js-cookie";
+import {ImStatsDots} from "react-icons/im"
+import {AiOutlineComment} from "react-icons/ai"
 
 const { Header, Content, Footer, Sider } = Layout;
 // const {Submenu} = Menu
@@ -72,10 +74,6 @@ export const AdminTemplate = (props) => {
 
         <button
           onClick={() => {
-            //  console.log(userlogin,'đăng xu')
-            //    localStorage.removeItem(userlogin);
-            //    localStorage.removeItem(USER_LOGIN);
-            //    localStorage.removeItem(TOKEN);
             navigate("/Home");
             window.location.reload();
           }}
@@ -95,7 +93,7 @@ export const AdminTemplate = (props) => {
             <NavLink to="/Home">
               <img
                 style={{ width: "70%", marginLeft: "25px" }}
-                src="../img/logo-full.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1280px-Netflix_2015_logo.svg.png"
                 alt=""
               />
             </NavLink>
@@ -157,6 +155,16 @@ export const AdminTemplate = (props) => {
                 <NavLink to="/admin/playtimes/addnew">Add Playtimes</NavLink>
               </Menu.Item>
             </SubMenu>
+            <SubMenu key="sub722" icon={<ImStatsDots />} title="Stats">
+              <Menu.Item key="1132" icon={<ImStatsDots />}>
+                <NavLink to="/admin/stats">Stats</NavLink>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub222" icon={<AiOutlineComment />} title="Comments">
+              <Menu.Item key="11322" icon={<AiOutlineComment />}>
+                <NavLink to="/admin/comments">Comments</NavLink>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="sub721" icon={<SlLogout />} onClick={()=> {
               Cookies.remove("uid")
               return window.location.reload()
@@ -167,7 +175,7 @@ export const AdminTemplate = (props) => {
         </Sider>
         <Layout
           className="site-layout"
-          style={{ backgroundColor: "#e8e8e8" }}
+          style={{ backgroundColor: "#e8e8e8", width: "calc(100% - 200px)"}}
         >
           <Header style={{ padding: 0, backgroundColor: "aliceblue" }} />
           <Content style={{ margin: "0 16px" }}>

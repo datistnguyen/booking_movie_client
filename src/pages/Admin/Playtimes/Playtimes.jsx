@@ -161,6 +161,8 @@ const InfoRoomDetail= (props)=> {
       }
     })
     const result= await res.data
+    swal("Chúc mừng", "Bạn đã cập nhật thời gian chiếu thành công", "success")
+    .then(()=> window.location.reload())
     window.location.reload()
     return console.log(result)
   }

@@ -35,7 +35,8 @@ export default function Detail(props) {
             <div className="img-left col-8">
               <div className="row bg-all">
                 <div className="col-6 bg">
-                  <img src={filmDetail.img} alt="" />
+                  <img
+                    alt="" src={filmDetail.img} />
                 </div>
                 <div className="col-6 " style={{}}>
                   <p
@@ -141,6 +142,7 @@ export default function Detail(props) {
                       tab={
                         <div>
                           <img
+                            alt=""
                             style={{ width: 50, height: 50 }}
                             src="https://movienew.cybersoft.edu.vn/hinhanh/cgv.png"
                           ></img>
@@ -154,9 +156,9 @@ export default function Detail(props) {
                         <div className="row">
                           <div className="col-12 d-flex mt-3">
                             <img
+                              alt=""
                               style={{ width: "10%", height: "90px" }}
                               src="https://s3img.vcdn.vn/123phim/2021/01/bhd-star-bitexco-16105952137769.png"
-                              alt=""
                             />
                             <div>
                               <div
@@ -253,11 +255,16 @@ export default function Detail(props) {
                     className="start d-flex mt-3"
                     style={{ marginLeft: 100, color: "yellow" }}
                   >
-                    <img width={20} src="../img/star.png" allowHalf />
-                    <img width={20} src="../img/star.png" allowHalf />
-                    <img width={20} src="../img/star.png" allowHalf />
-                    <img width={20} src="../img/star.png" allowHalf />
-                    <img width={20} src="../img/star.png" allowHalf />
+                    <img
+                      alt="" width={20} src="../img/star.png" allowHalf />
+                    <img
+                      alt="" width={20} src="../img/star.png" allowHalf />
+                    <img
+                      alt="" width={20} src="../img/star.png" allowHalf />
+                    <img
+                      alt="" width={20} src="../img/star.png" allowHalf />
+                    <img
+                      alt="" width={20} src="../img/star.png" allowHalf />
                   </button>
                 </div>
               </TabPane>

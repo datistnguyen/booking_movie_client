@@ -12,7 +12,7 @@ import Review from './BookingComponent/Review'
 const Booking = (props) => {
   const [data, setData]= useState([])
   const [cluster, setCluster]= useState([])
-
+  const [change, setChange]= useState(false)
   const idFilm= useMemo(()=> window.location.pathname.split("/")[parseInt(window.location.pathname.split("/").length) - 1], [])
   useEffect(()=> {
     (async()=> {
@@ -20,7 +20,7 @@ const Booking = (props) => {
             url: "http://localhost:8080/film/detail/film",
             method: "get",
             params: {
-                id: idFilm
+                id: window.location.pathname.split("/")[parseInt(window.location.pathname.split("/").length) - 1]
             }
 
         })
@@ -28,17 +28,17 @@ const Booking = (props) => {
         setCluster(result.cluster)
         return setData(result.data)
     })()
-  }, [idFilm])
+  }, [change, idFilm])
   return (
     <div className={"fjksdjksjklasjkasd"} style={{position: "relative", top: 60, width: '100%', background: "#212121"}}>
         <Banner data={data} />
         <Navigation idFilm={idFilm} />
         <br />
         <Routes>
-            <Route path={"/movie-information/:idFilm"} element={<BookingComponent data={data} />} />
+            <Route path={"/movie-information/:idFilm"} element={<BookingComponent data={data} setChange={setChange} />} />
             <Route path={"/showtimes/:idFilm"} element={<ShowTimes />} />
             <Route path={"/buy-ticket/:idFilm"} element={<BuyTickets data={data} cluster={cluster} />} />
-            <Route path={"/review/:idFilm"} element={<Review />} />
+            <Route path={"/review/:idFilm"} element={<Review data={data} />} />
         </Routes>
     </div>
   )

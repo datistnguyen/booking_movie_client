@@ -2,7 +2,7 @@ import React from "react";
 import HomeMenu from "./HomeMenu/HomeMenu";
 import "../Home/Home.css";
 import { useSelector,useDispatch } from "react-redux";
-import CustomArrows from "../../Components/ReactSlick/SimpleSlide";
+import CustomArrows, { CustomArrows1 } from "../../Components/ReactSlick/SimpleSlide";
 import Blog from "../../Components/Blog/Blog";
 import HomeCarousel from "../../templates/HomeTemplate/Layout/HomeCarousel/HomeCarousel"
 import "animate.css";
@@ -12,7 +12,6 @@ import { getAllCinemaAction } from "../../Redux/Actions/CinemaManageAction";
 export default function Home(props) {
   const { arrFilm } = useSelector((state) => state.FilmManageReducer);
   const { arrCinema } = useSelector((state)=>state.CinemaManageReducer);
-  console.log("array",arrFilm)
   // console.log("array",arrCinema)
    const dispatch = useDispatch();
   useEffect(() => { 
@@ -74,14 +73,14 @@ export default function Home(props) {
           </ul>
           <div className="tab-content" id="pills-tabContent">
             <div
-              className="tab-pane fade show active"
+              style={{width: "100%"}}
+              className="tab-pane fade show active c-flex-center"
               id="pills-home"
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
               {/* giao dieenj load phim */}
-              <CustomArrows arrFilm={arrFilm}  />
-        
+              <CustomArrows1 arrFilm={arrFilm}  />
             </div>
             <div
               className="tab-pane fade"

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 
-const Review = () => {
+const Review = (props) => {
   const [rateStar, setRateStar]= useState(0)
   const [commentContent, setCommentContent]= useState("")
   const {idFilm}= useParams()
@@ -38,6 +38,7 @@ const Review = () => {
             filmId: idFilm
         }
     })
+    // eslint-disable-next-line
     const result= await res.data
     setCommentContent("")
     setRateStar(0)
@@ -53,11 +54,11 @@ const Review = () => {
                         
                             {
                                 listComment?.length > 0 && 
-                            <Rate value={parseInt(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length)} disabled={true} />
+                                <Rate value={parseInt(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length)} disabled={true} />
                             }
                     </div>
                     <div className={"review-stats-x"} style={{flex: " 1 1 0", padding: 10}}>
-                        <div style={{color: "#fff"}}><strong>Avatar2 - Dòng chảy của nước</strong> được nhận 25 lượt đánh giá với số sao trung bình là <strong>3.74</strong></div>
+                        <div style={{color: "#fff"}}><strong>{props?.data?.movieName}</strong> được nhận {listComment?.length} lượt đánh giá với số sao trung bình là <strong>{_.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2)}</strong></div>
                     </div>
                 </div>
                 <br />

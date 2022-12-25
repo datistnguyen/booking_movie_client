@@ -1,11 +1,12 @@
 import { Button, Input, Modal } from 'antd';
 import axios from 'axios';
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
 import {AiOutlineSearch} from "react-icons/ai"
 import "./Film.sass"
+import moment from 'moment';
 
 const ListFilm = (props) => {
     const [idFilm, setIdFilm]= useState()
@@ -49,7 +50,7 @@ const ListFilm = (props) => {
         </div>
       </div>
       <br />
-      <table style={{width: '100%', background: "#fff"}}>
+      <table style={{width: '100%', background: "#fff", overflow: "auto"}}>
       <thead>
         <tr className={"title-table-data-list-film"}>
           <td>Tên phim</td>
@@ -62,7 +63,10 @@ const ListFilm = (props) => {
           <td>Thể loại</td>
           <td>Độ tuổi</td>
           <td>Thời lượng</td>
-          <td>Trailer</td>
+          <td>Thuộc rạp</td>
+          <td>Thuộc phòng</td>
+          <td>Khung giờ chiếu</td>
+          {/* <td>Trailer</td> */}
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
@@ -70,7 +74,11 @@ const ListFilm = (props) => {
         {
           data?.map((item, key)=> <tr className={"item-table-data-film"} key={key}>
             <td>{item.movieName}</td>
-            <td>{item.desc}</td>
+            <td>
+              <div className={"desc-over"} style={{maxHeight: 150, overflow: "hidden", width: 200}}>
+                {item.desc}
+              </div>
+            </td>
             <td>{item.price}</td>
             <td>{item.country}</td>
             <td>{item.actor}</td>
@@ -79,7 +87,9 @@ const ListFilm = (props) => {
             <td>{item.genre}</td>
             <td>{item.limitAge}</td>
             <td>{item.state}</td>
-            <td>{item.trailer}</td>
+            <td>{item?.Cinema?.cinemaName}</td>
+            <td>{item?.Cinema?.Rooms?.map(item=> <Fragment key={key}>{item.RoomName}{parseInt(key) === item?.Cinema?.Rooms?.length - 1 ? "" : ","}</Fragment>)}</td>
+            <td>{item?.PlayTimes?.map(item=> <div key={key}>{moment(props?.timeStart).format("DD-MM-YYYY HH:mm:ss")}{parseInt(key) === item?.PlayTimes?.length - 1 ? "" : ""}</div>)}</td>
             <td>
               <div style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 20}}>
                 <Button onClick={()=> {
@@ -121,7 +131,7 @@ const InfoDetailFilm= (props)=> {
       return setData(result.data)
     })()
   }, [props?.idFilm])
-  const updateUser= async()=> {
+  const updateFilm= async()=> {
     const res= await axios({
       url: "http://localhost:8080/film/update/"+ props?.idFilm,
       method: "patch",
@@ -130,13 +140,14 @@ const InfoDetailFilm= (props)=> {
       }
     })
     const result= await res.data
-    window.location.reload()
+    swal("Chúc mừng", "Bạn đã cập nhật phim thành công", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
     <Modal title="Sửa thông tin người dùng" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
-      updateUser()
+      updateFilm()
     }} onCancel={props?.handleCancel}>
       <div className={"label-item"} style={{marginBottom: 8}}>Tên phim</div>
       <Input value={data?.movieName} onChange={(e)=> setData(prev=> ({...prev, movieName: e.target.value}))} />
