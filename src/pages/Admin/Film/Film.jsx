@@ -32,7 +32,7 @@ const ListFilm = (props) => {
       })()
     }, [])
     // eslint-disable-next-line
-    const deleteUser= async (id)=> {
+    const deleteFilm= async (id)=> {
     const res= await axios({
       url: "http://localhost:8080/film/delete/"+ id,
       method: "delete"
@@ -53,19 +53,21 @@ const ListFilm = (props) => {
       <table style={{width: '100%', background: "#fff", overflow: "auto"}}>
       <thead>
         <tr className={"title-table-data-list-film"}>
-          <td>Tên phim</td>
-          <td>Mô tả</td>
-          <td>Giá</td>
-          <td>Quốc gia</td>
-          <td>Diễn viên</td>
-          <td>Đạo diễn</td>
-          <td>Nhà sản xuất</td>
-          <td>Thể loại</td>
-          <td>Độ tuổi</td>
-          <td>Thời lượng</td>
-          <td>Thuộc rạp</td>
-          <td>Thuộc phòng</td>
-          <td>Khung giờ chiếu</td>
+          <td>Movie's name</td>
+          <td>Describe</td>
+          <td>Price</td>
+          <td>Nation</td>
+          <td>Actor</td>
+          <td>Director</td>
+          <td>Studio</td>
+          <td>Genre</td>
+          <td>Age</td>
+          <td>Time</td>
+          <td>
+Belonging to the theater</td>
+          <td>
+Belonging to the room</td>
+          <td>Showtimes</td>
           {/* <td>Trailer</td> */}
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
@@ -95,18 +97,18 @@ const ListFilm = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setIdFilm(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
-                  deleteUser(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa tài khoản này thành công", "success")
-                }}>Xóa</Button>
+                  deleteFilm(item.id);
+                  swal("Congratulations", "You have successfully deleted this movie", "success")
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>There are no records yet</td>
           </tr>
         }
       </tbody>
@@ -140,34 +142,35 @@ const InfoDetailFilm= (props)=> {
       }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã cập nhật phim thành công", "success")
+    swal("Congratulations", "You have successfully updated the movie", "success")
     .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin người dùng" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Edit movie information" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
       updateFilm()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên phim</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Movie's name</div>
       <Input value={data?.movieName} onChange={(e)=> setData(prev=> ({...prev, movieName: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Mô tả</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>
+Describe</div>
       <Input value={data?.desc} onChange={(e)=> setData(prev=> ({...prev, desc: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Giá</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Price</div>
       <Input value={data?.price} onChange={(e)=> setData(prev=> ({...prev, price: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Quốc gia</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Nation</div>
       <Input value={data?.country} onChange={(e)=> setData(prev=> ({...prev, country: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Diễn viên</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Actor</div>
       <Input value={data?.actor} onChange={(e)=> setData(prev=> ({...prev, actor: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Đạo diễn</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Director</div>
       <Input value={data?.director} onChange={(e)=> setData(prev=> ({...prev, director: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Nhà sản xuất</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Studio</div>
       <Input value={data?.flimStudio} onChange={(e)=> setData(prev=> ({...prev, flimStudio: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Thể loại</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Genre</div>
       <Input value={data?.genre} onChange={(e)=> setData(prev=> ({...prev, genre: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Độ tuổi</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Age</div>
       <Input value={data?.limitAge} onChange={(e)=> setData(prev=> ({...prev, limitAge: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Thời lượng</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Time</div>
       <Input value={data?.state} onChange={(e)=> setData(prev=> ({...prev, state: e.target.value}))} />
       <div className={"label-item"} style={{marginBottom: 8}}>Trailer</div>
       <Input value={data?.trailer} onChange={(e)=> setData(prev=> ({...prev, trailer: e.target.value}))} />

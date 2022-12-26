@@ -1,10 +1,9 @@
-import { Button, Input, Modal, Select } from 'antd';
+import { Button, DatePicker, Input, Modal, Select } from 'antd';
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
-import {AiOutlineSearch} from "react-icons/ai"
 import "../Users/ListUser/ListUser.css"
 import moment from 'moment';
 const {Option}= Select
@@ -39,26 +38,23 @@ const ListDiscount = (props) => {
     })
     const result= await res.data
     setData(data?.filter(item=> parseInt(item.id) !== parseInt(id)))
-    swal("Chúc mừng", "Bạn đã xóa mã giảm giá thành công", "success")
+    swal("Congratulations", "You have successfully deleted the discount code", "success")
     .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
     <>
       <div style={{display: "flex", justifyContent:" center", alignItems: "center"}}>
-        <Input placeholder={"Tìm kiếm người dùng"} />
-        <div style={{width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", background: "#fff", cursor: "pointer"}}>
-            <AiOutlineSearch style={{width: 20, height: 20}} />
-        </div>
+       
       </div>
       <br />
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Ngày bắt đầu</td>
-          <td>Ngày kết thúc</td>
-          <td>Áp dụng</td>
-          <td>Giảm giá (%)</td>
+          <td>Start day</td>
+          <td>End date</td>
+          <td>Apply</td>
+          <td>Discount (%)</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
@@ -74,18 +70,19 @@ const ListDiscount = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setIdDiscount(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
                   deleteDiscount(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa phòng này thành công", "success")
-                }}>Xóa</Button>
+                  swal("Congratulations", "You have successfully deleted this room", "success")
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>
+There are no records yet</td>
           </tr>
         }
       </tbody>
@@ -124,7 +121,7 @@ const InfoRoomDetail= (props)=> {
         return setFilm(result)
     })()
   }, [])
-  const updateRoom= async()=> {
+  const updateDiscount= async()=> {
     const res= await axios({
       url: "http://localhost:8080/discount/update/"+  props?.idDiscount,
       method: "patch",
@@ -133,26 +130,30 @@ const InfoRoomDetail= (props)=> {
       }
     })
     const result= await res.data
-    window.location.reload()
+    swal("Congratulations", "You have successfully updateed a discount", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin phòng vé" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Edit info discount" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
-      updateRoom()
+      updateDiscount()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Ngày bắt đầu</div>
-      <Input value={newData?.dateStart} onChange={(e)=> setNewData(prev=> ({...prev, dateStart: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Ngày kết thúc</div>
-      <Input value={newData?.dateEnd} onChange={(e)=> setNewData(prev=> ({...prev, dateEnd: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Áp dụng</div>
-      <Select style={{width: "100%"}} value={data?.movieName} onChange={(e)=> setNewData(prev=> ({...prev, filmId: e}))}>
+      <div className={"label-item"} style={{marginBottom: 8}}>Start day</div>
+      <DatePicker style={{width: '100%'}} showTime format={"YYYY-MM-DD HH:mm:ss"} value={moment(newData?.dateStart)} onChange={(e)=> setNewData(prev=> ({...prev, dateStart: e}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>End date</div>
+      <DatePicker style={{width: '100%'}} showTime format={"YYYY-MM-DD HH:mm:ss"} value={moment(newData?.dateEnd)} onChange={(e)=> setNewData(prev=> ({...prev, dateEnd: e}))} />
+      <div className={"label-item"} style={{marginBottom: 8}}>Apply</div>
+      <Select style={{width: "100%"}} value={data?.movieName} onChange={(e)=> {
+        setNewData(prev=> ({...prev, filmId: e}))
+        setData(prev=> ({...prev, movieName: e}))
+      }}>
         {
           film?.map((item, key)=> <Option key={key} value={item.id}>{item.movieName}</Option>)
         }
       </Select>
       <br />
-      <div className={"label-item"} style={{marginBottom: 8}}>Giảm giá (%)</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Discount (%)</div>
       <Input value={newData?.percent} onChange={(e)=> setNewData(prev=> ({...prev, percent: e.target.value}))} />
     </Modal>
   )

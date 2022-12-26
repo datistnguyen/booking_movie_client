@@ -2,9 +2,11 @@ import { Button, Input, Select } from 'antd'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert'
 const {Option}= Select
 const AddCinema = () => {
+  const navigate= useNavigate()
   const [cinema, setCinema]= useState({
     cinemaName: "",
     address: "",
@@ -31,28 +33,28 @@ const AddCinema = () => {
         }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã tạo rạp thành công", "success")
-    .then(()=> window.location.reload())
+    swal("Congratulations", "You have successfully created a theater", "success")
+    .then(()=> navigate("/admin/cinema"))
   }
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Tên rạp
+      Theater name
       </div>
       <Input value={cinema.cinemaName} onChange={(e)=> setCinema(prev=> ({...prev, cinemaName: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Địa chỉ
+      Address
       </div>
       <Input value={cinema.address} onChange={(e)=> setCinema(prev=> ({...prev, address: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Hình ảnh
+      Picture
       </div>
       <Input value={cinema.img} onChange={(e)=> setCinema(prev=> ({...prev, img: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Cụm rạp
+      Cluster of theaters
       </div>
       <Select style={{width: "100%"}} onChange={(e)=> setCinema(prev=> ({...prev, clusterId: e}))}>
         {

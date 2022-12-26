@@ -104,7 +104,7 @@ const FoodAndDrink = (props) => {
                 </div>
                 <br />
                 <div onClick={()=> navigate("/book/checkout/"+ props?.idFilm+ "/"+ props?.idCinema)} className={"jdsldjskldjksldas"} style={{width: "100%", color: "#fff", backgroundColor: "#12263f", borderRadius: 5, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: 600, cursor: "pointer", padding: "12px 10px", fontSize: 16 }}>
-                    Tiếp tục
+                    Continue
                 </div>
             </div>
         </div>

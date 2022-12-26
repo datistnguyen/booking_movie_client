@@ -48,7 +48,7 @@ const AddPlaytime = () => {
     })
     // eslint-disable-next-line
     const result= await res.data
-    return swal("Thông báo", "Tạo giờ phát sóng thành công", "success").then(()=> navigate("/admin/playtimes"))
+    return swal("Notice", "Successfully created broadcast time", "success").then(()=> navigate("/admin/playtimes"))
   }
   const getRoom= async ()=> {
     const res= await axios({
@@ -64,12 +64,12 @@ const AddPlaytime = () => {
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Thời gian chiếu
+      Showtime
       </div>
-      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(playtime.dateStart)} onChange={(e, value)=> setPlaytime(prev=> ({...prev, timeStart: value}))} />
+      <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(playtime.timeStart)} onChange={(e, value)=> setPlaytime(prev=> ({...prev, timeStart: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Áp dụng cho phim
+      Apply to movies
       </div>
       <Select style={{width: "100%"}} onChange={(e)=> setPlaytime(prev=> ({...prev, filmId: e}))}>
         {
@@ -78,7 +78,8 @@ const AddPlaytime = () => {
       </Select>
       <div></div>   
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Áp dụng cho rạp
+        
+Apply to theaters
       </div>
       <Select style={{width: "100%"}} onChange={(e)=> setCinemaId(e)}>
         {
@@ -86,11 +87,11 @@ const AddPlaytime = () => {
         }
       </Select>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Áp dụng cho phòng 
+      Apply to room
       </div>
       <Select onClick={getRoom} style={{width: "100%"}} onChange={(e)=> setPlaytime(prev=> ({...prev, roomId: e}))}>
         {
-          room?.map((item, key)=> <Option key={key} value={item?.id}>{item?.RoomName} ({item?.seat} chỗ ngồi)</Option>)
+          room?.map((item, key)=> <Option key={key} value={item?.id}>{item?.RoomName} ({item?.seat} seats)</Option>)
         }
       </Select>
       <div>

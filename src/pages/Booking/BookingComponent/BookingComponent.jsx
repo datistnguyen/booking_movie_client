@@ -26,7 +26,7 @@ const BookingComponent = (props) => {
                         <div className={"fksdjkldjkldasj"}>{props?.data?.genre}</div>
                         <div className={"fkdjskldjskldas"} style={{display: "flex", alignItems: "center", gap: 5}}>
                             <div className={"cvkjdsjkljsdklasas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", cursor: "context-menu"}}>Trailer</div>
-                            <div className={"dajfhjhjhjashjas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", backgroundColor: "#e63757", cursor: "pointer"}} onClick={()=> navigate("/booking/buy-ticket/"+ idFilm)}>Mua vé</div>
+                            <div className={"dajfhjhjhjashjas"} style={{padding: "2px 8px", fontSize: 13, color: "#fff", borderRadius: 5, border: "1px solid #fff", backgroundColor: "#e63757", cursor: "pointer"}} onClick={()=> navigate("/booking/buy-ticket/"+ idFilm)}>Buy ticket</div>
                         </div>
                         <br />
                         <p style={{cursor: "context-menu", color: "#fff"}} title={props?.data?.desc}>{props?.data?.desc}</p>
@@ -35,21 +35,21 @@ const BookingComponent = (props) => {
                             <div className={"fgdnfjkldjskldad"}>
                                 <div className={"fdkdsfjkldjfkd"} style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 5, color: "#fff"}}>
                                     <AiOutlineCalendar style={{color: "#fff"}} />
-                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Khởi chiếu</span>
+                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Premiere</span>
                                 </div>
                                 <div style={{fontSize: 16, color: "#fff"}}>{moment(props?.data?.dateStart).format("DD/MM/YYYY")}</div>
                             </div>
                             <div className={"fgdnfjkldjskldad"}>
                                 <div className={"fdkdsfjkldjfkd"} style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 5, color: "#fff"}}>
                                     <TfiTimer style={{color: "#fff"}} />
-                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Thời lượng</span>
+                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Time</span>
                                 </div>
-                                <div style={{fontSize: 16, color: "#fff"}}>{props?.data?.state} phút</div>
+                                <div style={{fontSize: 16, color: "#fff"}}>{props?.data?.state} minutes</div>
                             </div>
                             <div className={"fgdnfjkldjskldad"}>
                                 <div className={"fdkdsfjkldjfkd"} style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 5, color: "#fff"}}>
                                     <BiUserCheck style={{color: "#fff"}} />
-                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Giới hạn tuổi</span>
+                                    <span style={{fontWeight: 600, fontSize: 15, color: "#fff"}}>Limit age</span>
                                 </div>
                                 <div style={{fontSize: 16, color: "#fff"}}>{props?.data?.limitAge} + </div>
                             </div>
@@ -57,19 +57,19 @@ const BookingComponent = (props) => {
                     </div>
                     <div className={"fjkdjkljdkljsadasadfdsas"} style={{fontSize: 15}}>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Diễn viên: </div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Actor: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 {props?.data?.actor}
                             </div>
                         </div>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Đạo diễn: </div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Director: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 {props?.date?.director}
                             </div>
                         </div>
                         <div className={"fdkjdsjfklfvgfgj"} style={{marginBottom: 10}}>
-                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Nhà sản xuất: </div>
+                            <div className={"kfldfkjkdjskjklsdas"} style={{fontWeight: 600, color: "#fff", whiteSpace: "nowrap"}}>Studio: </div>
                             <div className={"fjdfjklsdjkldjaklea"} style={{fontWeight: 600, color: "#e63757"}}>
                                 {props?.data?.flimStudio}
                             </div>

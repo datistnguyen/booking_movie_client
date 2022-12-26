@@ -4,7 +4,6 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
-import {AiOutlineSearch} from "react-icons/ai"
 import "../Users/ListUser/ListUser.css"
 const {Option}= Select
 
@@ -38,26 +37,22 @@ const ListRoom = (props) => {
     })
     const result= await res.data
     setData(data?.filter(item=> parseInt(item.id) !== parseInt(id)))
-    swal("Chúc mừng", "Bạn đã xóa rạp này thành công", "success")
+    swal("Congratulations", "You have successfully deleted this theater", "success")
     .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
     <>
       <div style={{display: "flex", justifyContent:" center", alignItems: "center"}}>
-        <Input placeholder={"Tìm kiếm người dùng"} />
-        <div style={{width: 32, height: 32, display: "flex", justifyContent: "center", alignItems: "center", background: "#fff", cursor: "pointer"}}>
-            <AiOutlineSearch style={{width: 20, height: 20}} />
-        </div>
       </div>
       <br />
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Tên phòng</td>
-          <td>Địa chỉ</td>
-          <td>Chỗ ngồi</td>
-          <td>Thuộc rạp</td>
+          <td>Room name</td>
+          <td>Address</td>
+          <td>Seats</td>
+          <td>Belonging to the theater</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
@@ -73,18 +68,18 @@ const ListRoom = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setidRoom(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
                   deleteCluster(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa phòng này thành công", "success")
-                }}>Xóa</Button>
+                  swal("Congratulations", "You have successfully deleted this room", "success")
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>There are no records yet</td>
           </tr>
         }
       </tbody>
@@ -132,22 +127,23 @@ const InfoRoomDetail= (props)=> {
       }
     })
     const result= await res.data
-    window.location.reload()
+    swal("Congratulations", "You have successfully updated a room", "success")
+    .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin phòng vé" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Edit box office information" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
       updateRoom()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên phòng</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Room name</div>
       <Input value={newData?.RoomName} onChange={(e)=> setNewData(prev=> ({...prev, RoomName: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Địa chỉ</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Address</div>
       <Input value={newData?.address} onChange={(e)=> setNewData(prev=> ({...prev, address: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Chỗ ngồi</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Seats</div>
       <Input value={newData?.seat} onChange={(e)=> setNewData(prev=> ({...prev, seat: e.target.value}))} />
       <br />
-      <div className={"label-item"} style={{marginBottom: 8}}>Rạp phim</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Movie theater</div>
       <Select style={{width: "100%"}} value={data?.cinemaName} onChange={(e)=> setNewData(prev=> ({...prev, cinemaId: e}))}>
         {
             cinema?.map((item, key)=> <Option key={key} value={item.id}>{item.cinemaName}</Option>)

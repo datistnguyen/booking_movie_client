@@ -39,8 +39,7 @@ const ListComment = (props) => {
     })
     const result= await res.data
     setData(data?.filter(item=> parseInt(item.id) !== parseInt(id)))
-    swal("Chúc mừng", "Bạn đã xóa mã giảm giá thành công", "success")
-    .then(()=> window.location.reload())
+    swal("Congratulations", "You have successfully deleted the discount code", "success")
     return console.log(result)
   }
   return (

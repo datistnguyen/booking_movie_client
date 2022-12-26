@@ -36,27 +36,28 @@ const AddDiscount = () => {
     })
     // eslint-disable-next-line
     const result= await res.data
-    return swal("Thông báo", "Tạo mã giảm giá thành công", "success").then(()=> navigate("/admin/discount"))
+    return swal("Notice", "Successfully generated discount code", "success").then(()=> navigate("/admin/discount"))
   }
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ngày bắt đầu
+      Start day
       </div>
       <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(discount.dateStart)} onChange={(e, value)=> setDiscount(prev=> ({...prev, dateStart: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ngày kết thúc
+        
+End date
       </div>
       <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(discount.dateEnd)} onChange={(e, value)=> setDiscount(prev=> ({...prev, dateEnd: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Giảm giá (%)
+      Discount (%)
       </div>
       <Input value={discount.percent} onChange={(e)=> setDiscount(prev=> ({...prev, percent: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Áp dụng cho phim
+      Apply to movies
       </div>
       <Select style={{width: "100%"}} onChange={(e)=> setDiscount(prev=> ({...prev, filmId: e}))}>
         {

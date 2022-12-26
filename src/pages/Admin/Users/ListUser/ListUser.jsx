@@ -4,7 +4,6 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
-import {AiOutlineSearch} from "react-icons/ai"
 import "./ListUser.css"
 
 const ListUser = (props) => {
@@ -72,18 +71,19 @@ const ListUser = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setIdUser(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
                   deleteUser(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa tài khoản này thành công", "success")
-                }}>Xóa</Button>
+                  swal("Congratulations", "You have successfully deleted this account", "success")
+                  .then(()=> window.location.reload())
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>No more records</td>
           </tr>
         }
       </tbody>
@@ -121,22 +121,22 @@ const InfoDetailUser= (props)=> {
       }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã cập nhật tài khoản thành công", "success")
+    swal("Congratulations", "You have successfully updated your account", "success")
     .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin người dùng" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Edit user information" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
       updateUser()
     }} onCancel={props?.handleCancel}>
       <div className={"label-item"} style={{marginBottom: 8}}>Email</div>
       <Input value={data?.email} onChange={(e)=> setData(prev=> ({...prev, email: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên người dùng</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Username</div>
       <Input value={data?.username} onChange={(e)=> setData(prev=> ({...prev, username: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Địa chỉ</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Address</div>
       <Input value={data?.address} onChange={(e)=> setData(prev=> ({...prev, address: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Số điện thoại</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Phone number</div>
       <Input value={data?.phoneNumber} onChange={(e)=> setData(prev=> ({...prev, phoneNumber: e.target.value}))} />
     </Modal>
   )

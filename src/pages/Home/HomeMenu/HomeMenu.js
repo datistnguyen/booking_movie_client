@@ -64,12 +64,13 @@ export default function HomeMenu(props) {
                       <Fragment key={index}>
                         <div
                           className="my-2"
-                          style={{ display: "flex", paddingBottom: "20px"}}
+                          style={{ display: "flex", paddingBottom: "20px", marginRight: 24, borderBottom: "1px solid #fff"}}
                         >
-                          <div className="d-flex">
+
+                          <div className="d-flex" style={{boxSizing: "border-box"}}>
                             <img
                               style={{
-                                width: "120px",
+                                width: "80px",
                                 aspectRatio: 2 / 3,
                                 objectFit: "contain",
                                 borderRadius: 5
@@ -77,10 +78,10 @@ export default function HomeMenu(props) {
                               src={Films.img}
                               alt=""
                             />
-                            <div className="ml-2 ">
-                              <h3 style={{ color: "green", fontWeight: "700" }}>
+                            <div className="ml-2 " style={{flex: "1 1 0"}}>
+                              <h1 style={{ color: "green", fontWeight: "700", fontSize: 20 }}>
                                 {Films.movieName}
-                              </h3>
+                              </h1>
                               <p className="text">{Films.country}</p>
                               <div className="grid grid-cols-6 gap-6">
                                 {/* <p
@@ -91,8 +92,6 @@ export default function HomeMenu(props) {
                                 </p> */}
                                 <div></div>
                               </div>
-                              <br />
-                              <br />
                               <div className={"fjdasjdkljdkass"} style={{display: "flex", alignItems:" center", gap: 16}}>
 
                                 <div style={{display: "flex", alignItems: "center", gap: 12}}>
@@ -100,14 +99,14 @@ export default function HomeMenu(props) {
                                     Films?.PlayTimes?.filter(item=> moment(item?.timeStart, "YYYY-MM-DD HH:mm:ss").format("DD-MM-YYYY") === moment(new Date()).format("DD-MM-YYYY") && moment(item?.timeStart, "YYYY-MM-DD HH:mm:ss").valueOf() >= moment(new Date()).valueOf())?.map((item, key)=> <>
                                      {
                                       moment(new Date()).valueOf() <= moment(item.timeStart).valueOf() &&
-                                    <div onClick={() =>
+                                    <span onClick={() =>
                                       navigate(
                                         "/book/choose-chair/" + item?.filmId + "/" + Cinemas?.id,
                                         { state: { timeStart: item?.timeStart, id_cinema: Cinemas?.id, playTimeId: item?.id} }
                                       )
                                     } key={key} style={{padding: 10, borderRadius: 80, cursor: "pointer", background: "#3a3b3c", color: "#fff"}}>
                                       {  moment(item.timeStart).format("HH:mm:ss")}
-                                    </div>
+                                    </span>
                                      } 
                                     </>
                                     )  
@@ -119,7 +118,6 @@ export default function HomeMenu(props) {
                             </div>
                           </div>
                         </div>
-                        <hr />
                       </Fragment>
                     );
                   })}
@@ -144,7 +142,7 @@ export default function HomeMenu(props) {
           marginBottom: "30px",
         }}
       >
-        LỊCH CHIẾU
+        Schedule
       </h1>
       <Tabs
         tabPosition={tabPosition}

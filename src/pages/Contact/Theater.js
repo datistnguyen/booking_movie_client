@@ -32,21 +32,21 @@ export default function Contact(props) {
                   <div className="col-md-8">
                     <div className="card-body">
                       <span style={{ fontSize: 20, fontWeight: 600 }}>
-                        Tên Rạp: {item?.ClusterName}
+                        Cinema name: {item?.ClusterName}
                       </span>
                       <br />
 
                       <span>
                         -{" "}
-                        <span>Địa Chỉ: {item?.address}</span>
+                        <span>Address: {item?.address}</span>
                         <div></div>
                         <br />
-                        <div style={{fontWeight: 600, fontSize: 20}}>Các rạp phim: </div>
+                        <div style={{fontWeight: 600, fontSize: 20}}>Cinemas: </div>
                         <br />
                         {
                           item?.Cinemas?.map((item, key)=> <div key={key}>
-                            <div>Tên: {item.cinemaName}</div>
-                            <div>Địa chỉ: {item.address}</div>
+                            <div>Name: {item.cinemaName}</div>
+                            <div>Address: {item.address}</div>
                           </div>)
                         }
                       </span>

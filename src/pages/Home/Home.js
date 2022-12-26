@@ -47,7 +47,7 @@ export default function Home(props) {
                 }}
                 
               >
-                Đang Chiếu
+                Playing
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -67,7 +67,7 @@ export default function Home(props) {
                 }}
               
               >
-                Sắp Chiếu
+                Upcoming
               </button>
             </li>
           </ul>

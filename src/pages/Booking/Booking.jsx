@@ -51,7 +51,7 @@ const Banner= (props)=> {
             <div className={"dkskdjakdjsklass"}></div>
             <div className={"dkskdjakdjsklass"}>{props?.genre}</div>
             <div className={"dfkjsldjkjklsdds"} >
-                <TfiTimer /> {props?.data?.state}phút
+                <TfiTimer /> {props?.data?.state} minutes
             </div>
         </div>
     )
@@ -62,19 +62,13 @@ const Navigation= (props)=> {
         <div className={"kjdsjkdjsakljdsas"}>
             <div className={"fskdsjdkjaskalsjas"}>
                 <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/movie-information/"+ props?.idFilm} style={{height: "100%", marginRight: 12, display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    Thông tin phim
+                    Movie information
                 </NavLink>
-                {/* <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/showtimes/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    Lịch chiếu
-                </NavLink> */}
-                {/* <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/news/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    Tin tức
-                </NavLink> */}
                 <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/review/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    Đánh giá
+                    Rating
                 </NavLink>
                 <NavLink className={({isActive})=> isActive ? "jfdklfdkjssdsafsd" : "sfdljhdjkhdjkashajkwa"} to={"/booking/buy-ticket/"+ props?.idFilm} style={{height: "100%", margin: "0 12px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    Mua vé
+                    Book
                 </NavLink>
             </div>
         </div>

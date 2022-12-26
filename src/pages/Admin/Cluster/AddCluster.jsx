@@ -2,8 +2,10 @@ import { Button, Input } from 'antd'
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert'
 const AddCluster = () => {
+  const navigate= useNavigate()
   const [cluster, setCluster]= useState({
     ClusterName: "",
     address: "",
@@ -18,23 +20,23 @@ const AddCluster = () => {
         }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã tạo cụm rạp thành công", "success")
-    .then(()=> window.location.reload())
+    swal("Congratulations", "You have successfully created a theater cluster", "success")
+    .then(()=> navigate("/admin/cluster"))
   }
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Tên cụm rạp
+      Name of theater cluster
       </div>
       <Input value={cluster.ClusterName} onChange={(e)=> setCluster(prev=> ({...prev, ClusterName: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Địa chỉ
+      Address
       </div>
       <Input value={cluster.address} onChange={(e)=> setCluster(prev=> ({...prev, address: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Hình ảnh
+      Picture
       </div>
       <Input value={cluster.img} onChange={(e)=> setCluster(prev=> ({...prev, img: e.target.value}))} />
       <br />

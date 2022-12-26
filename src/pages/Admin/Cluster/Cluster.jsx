@@ -50,9 +50,9 @@ const ListCluster = (props) => {
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Tên cụm rạp</td>
-          <td>Địa chỉ</td>
-          <td>Hình ảnh</td>
+          <td>Name of theater cluster</td>
+          <td>Address</td>
+          <td>Picture</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
@@ -67,18 +67,18 @@ const ListCluster = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setIdCluster(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
                   deleteCluster(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa cụm rạp này thành công", "success")
-                }}>Xóa</Button>
+                  swal("Congratulations", "You have successfully deleted this cluster", "success")
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>There are no records yet</td>
           </tr>
         }
       </tbody>
@@ -113,20 +113,21 @@ const InfoDetailUser= (props)=> {
       }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã cập nhật cụm rạp thành công", "success")
+    swal("Congratulations", "You have successfully updated the theater cluster", "success")
     .then(()=> window.location.reload())
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin cụm rạp" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="
+    Edit theater cluster information" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
       updateCluster()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Tên cụm rạp</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Name of theater cluster</div>
       <Input value={data?.ClusterName} onChange={(e)=> setData(prev=> ({...prev, ClusterName: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Địa chỉ</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Address</div>
       <Input value={data?.address} onChange={(e)=> setData(prev=> ({...prev, address: e.target.value}))} />
-      <div className={"label-item"} style={{marginBottom: 8}}>Hình ảnh</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Picture</div>
       <Input value={data?.img} onChange={(e)=> setData(prev=> ({...prev, img: e.target.value}))} />
       <br />
     </Modal>

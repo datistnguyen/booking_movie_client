@@ -114,7 +114,7 @@ const BuyTickets = (props) => {
             }}
           >
             <AiOutlineInfoCircle />{" "}
-            <span>Nhấn vào suất chiếu để tiến hành mua vé</span>
+            <span>Click on the show to buy tickets</span>
           </div>
           <br />
           {listCluster?.filter(item=> item?.Cinemas?.filter(item=> item?.Films?.filter(item2=> item2?.PlayTimes?.length > 0  && item2?.PlayTimes?.filter(item3=> parseInt(item3?.FilmId) === parseInt(idFilm))?.length > 0 && item2?.PlayTimes?.filter(item3=> parseInt(moment(item3?.timeStart).valueOf()) >= parseInt(moment(new Date()).valueOf()))?.length > 0 && item2?.PlayTimes?.filter(item3=> moment(item3?.timeStart).format("DD/MM") === chooseDay)?.length > 0)?.length > 0)?.length > 0)?.map((item, key) => (
@@ -192,7 +192,7 @@ const ComponentCinema = (props) => {
               {props?.ClusterName}
             </div>
             <div className={"fdjijdsjdkasjdklasjas"} style={{ fontSize: 12 }}>
-              {props?.Cinemas?.length} rạp
+              {props?.Cinemas?.length} cinemas
             </div>
           </div>
         </div>

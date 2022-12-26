@@ -142,11 +142,11 @@ export default function Blog() {
                     className="text-light mt-5"
                     style={{ fontSize: "50px", width: "70%" }}
                 >
-                    Ứng dụng tiện lợi dành cho người yêu điện ảnh
+                    Convenient app for movie lovers
                 </h1>
                 <p style={{ fontSize: "15px", color: "white", marginTop: "80px" }}>
-                    Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp và
-                    đổi quà hấp dẫn.
+                Not only can you book tickets, you can also comment on movies, score theaters and
+                    attractive gift exchange.
                 </p>
                 <button
                     className="btn btn-primary mt-3"
@@ -156,7 +156,7 @@ export default function Blog() {
                         height: "50px",
                     }}
                 >
-                    APP MIỄN PHÍ-TẢI VỀ NGAY
+                    Available now
                 </button>
             </div>
 

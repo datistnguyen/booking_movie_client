@@ -75,8 +75,8 @@ const ListPlaytimes = (props) => {
       <table style={{width: '100%', background: "#fff"}}>
       <thead>
         <tr>
-          <td>Thời gian bắt đầu</td>
-          <td>Thuộc phim</td>
+          <td>Start time</td>
+          <td>Belonging to the movie</td>
           <td style={{textAlign: "center"}}>Action</td>
         </tr>
       </thead>
@@ -90,18 +90,18 @@ const ListPlaytimes = (props) => {
                 <Button onClick={()=> {
                   showModal()
                   setIdPlaytimes(item.id)
-                }}>Chỉnh sửa</Button>
+                }}>Edit</Button>
                 <Button onClick={()=> {
                   deletePlaytimes(item.id);
-                  swal("Chúc mừng", "Bạn đã xóa phòng này thành công", "success")
-                }}>Xóa</Button>
+                  swal("Congratulations", "You have successfully deleted this room", "success")
+                }}>Delete</Button>
               </div>
             </td>
           </tr>)
         }
         {
           data?.length <=0 && <tr>
-            <td colSpan={5} style={{textAlign: "center", padding: 10}}>Không có bản ghi nào</td>
+            <td colSpan={5} style={{textAlign: "center", padding: 10}}>There are no records yet</td>
           </tr>
         }
       </tbody>
@@ -161,17 +161,16 @@ const InfoRoomDetail= (props)=> {
       }
     })
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã cập nhật thời gian chiếu thành công", "success")
+    swal("Congratulations", "You have successfully updated the showtime", "success")
     .then(()=> window.location.reload())
-    window.location.reload()
     return console.log(result)
   }
   return (
-    <Modal title="Sửa thông tin thời gian phát" open={props?.isModalOpen} onOk={()=> {
+    <Modal title="Edit play time information" open={props?.isModalOpen} onOk={()=> {
       props?.handleOk()
       updatePlaytime()
     }} onCancel={props?.handleCancel}>
-      <div className={"label-item"} style={{marginBottom: 8}}>Thời gian bắt đầu</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>Start time</div>
       <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(newData?.timeStart)} onChange={(e, value)=> setNewData(prev=> ({...prev, timeStart: value}))} />
 
       {/* <div className={"label-item"} style={{marginBottom: 8}}>Thuộc phòng</div>
@@ -180,7 +179,8 @@ const InfoRoomDetail= (props)=> {
           room?.map((item, key)=> <Option key={key} value={item.id}>{item.RoomName}</Option>)
         }
       </Select> */}
-      <div className={"label-item"} style={{marginBottom: 8}}>Áp dụng phim</div>
+      <div className={"label-item"} style={{marginBottom: 8}}>
+Apply film</div>
       <Select style={{width: "100%"}} value={data?.movieName} onChange={(e)=> setNewData(prev=> ({...prev, filmId: e}))}>
         {
           film?.map((item, key)=> <Option key={key} value={item.id}>{item.movieName}</Option>)

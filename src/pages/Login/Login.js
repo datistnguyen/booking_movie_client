@@ -15,8 +15,8 @@ export default function Login(props) {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("không được bỏ trống trường thông tin !"),
-      password: Yup.string().required("không được để trống trường thông tin !"),
+      email: Yup.string().required("Do not leave the information field blank!"),
+      password: Yup.string().required("The information field cannot be left blank!"),
     }),
     onSubmit: (values) => {
       const action = loginAction(values);

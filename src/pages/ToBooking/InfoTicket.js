@@ -44,7 +44,7 @@ const InfoTicket = () => {
         }}
       >
         <div className={"zjfjsdksljdkasafsd"} style={{textAlign: "center", fontWeight: 600, fontSize: 20}}>
-            Chúc mừng bạn đã đặt vé thành công
+            Congrats, you booked ticket successfully
         </div>
         <br />
         <br />
@@ -67,9 +67,9 @@ const InfoTicket = () => {
             {data?.address}
         </div>
         <div style={{width: "100%", fontSize: 15, fontWeight: 600}}>
-          <div>Thông tin vé được gửi về: </div>
+          <div>Ticket infomation is sent to email: </div>
           <div>Email: {userLogin?.email}</div>
-          <div>Số điện thoại: {userLogin?.phoneNumber}</div>
+          <div>Phone number: {userLogin?.phoneNumber}</div>
         </div>
       </div>
       <div
@@ -85,13 +85,13 @@ const InfoTicket = () => {
             borderRadius: 5,
           }}
         >
-            <div style={{fontSize: 16, fontWeight: 600, marginBottom: 12}}>{data?.movieName}</div>
-            <div style={{fontSize: 16, fontWeight: 600, marginBottom: 12}}>{data?.cinemaName}</div>
+            <div style={{fontSize: 16, fontWeight: 600, marginBottom: 12}}>Film: {data?.movieName}</div>
+            <div style={{fontSize: 16, fontWeight: 600, marginBottom: 12}}>Cinema: {data?.cinemaName}</div>
             <div style={{fontSize: 16, marginBottom: 12}}>
-                Suất: <strong>{moment(data?.timeStart).format("HH:mm")}</strong> - {moment(data?.timeStart).format("dddd")}, <strong>{moment(data?.timeStart)?.format("DD/MM")}</strong>
+                Set: <strong>{moment(data?.timeStart).format("HH:mm")}</strong> - {moment(data?.timeStart).format("dddd")}, <strong>{moment(data?.timeStart)?.format("DD/MM")}</strong>
             </div>
             <div style={{fontSize: 16, marginBottom: 12}}>
-                Phòng chiếu: <strong>{data?.RoomName}</strong> - Ghế: {data?.seat?.map((item, key)=> <strong key={key}>{item.seatIndex}{parseInt(key) === data?.seat.length - 1 ? "" : ","}</strong>)}
+                Room: <strong>{data?.RoomName}</strong> - Seat: {data?.seat?.map((item, key)=> <strong key={key}>{item.seatIndex}{parseInt(key) === data?.seat.length - 1 ? "" : ","}</strong>)}
             </div>
 
         </div>
@@ -105,9 +105,9 @@ const InfoTicket = () => {
             borderRadius: 5,
           }}
         >
-            <div style={{fontSize: 16, marginBottom: 12}}>Tổng giá trị</div>
+            <div style={{fontSize: 16, marginBottom: 12}}>Total grand</div>
             <div style={{fontSize: 16, marginBottom: 12, fontWeight: 600}}>
-                {numberWithCommas(parseInt(parseInt(data?.price) * data?.seat?.length) + 5000)}đ (Đã bao gồm VAT)
+                {numberWithCommas(parseInt(parseInt(data?.price) * data?.seat?.length) + 5000)}đ (Included VAT)
             </div>
         </div>
       </div>    

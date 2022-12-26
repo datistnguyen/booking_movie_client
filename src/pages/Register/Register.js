@@ -25,19 +25,19 @@ export default function Register(props) {
     },
     validationSchema:Yup.object({
       username: Yup.string()
-        .required("Tên người dùng không để trống")
-        .min(6, "Tối thiểu 6 ký tự")
-        .max(15, "Tối đa 15 ký tự"),
+        .required("Username can't be blank")
+        .min(6, "Minimum 6 characters")
+        .max(15, "Minimum 15 characters"),
       password: Yup.string()
-        .required("Mật khẩu không để trống")
-        .min(6, "Mật Khẩu Tối thiểu 6 ký tự")
-        .max(12, "Mật khẩu Tối đa 12 ký tự"),
+        .required("Password is not blank")
+        .min(6, "Password Minimum 6 characters")
+        .max(12, "Password Minimum 12 characters"),
       email: Yup.string()
-        .required("Email không để trống")
-        .email("Email không đúng format"),
-      phoneNumber:Yup.string().required("Số điện thoại không được bỏ trống !"),
-      date:Yup.string().required("không được để trống trường thông tin !"),
-      address:Yup.string().required("Địa chỉ không được bỏ trống!"),
+        .required("Email is not blank")
+        .email("Email is not formatted correctly"),
+      phoneNumber:Yup.string().required("Phone number cannot be left blank!"),
+      date:Yup.string().required("the information field cannot be left blank!"),
+      address:Yup.string().required("Address not be vacant!"),
     }),
     onSubmit: (values) => {
       const action = RegisterAction(values);

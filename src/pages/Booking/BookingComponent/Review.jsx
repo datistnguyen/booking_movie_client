@@ -50,7 +50,7 @@ const Review = (props) => {
             <div className={"wrap-1-1"} style={{width: "100%", maxWidth: 736}}>
                 <div className={"wrap-review-1"} style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: "20px 0", background: "#242526"}}>
                     <div className={"review-zx"} style={{width: "100%", padding: 10, flex: "1 1 0"}}>
-                        <span className={"count-review"} style={{fontSize: 36, color: "#fff", fontWeight: 600}}>{listComment.length > 0 ? _.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2) : "Chưa có đánh giá"}</span> 
+                        <span className={"count-review"} style={{fontSize: 36, color: "#fff", fontWeight: 600}}>{listComment.length > 0 ? _.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2) : "No any rate"}</span> 
                         
                             {
                                 listComment?.length > 0 && 
@@ -58,28 +58,28 @@ const Review = (props) => {
                             }
                     </div>
                     <div className={"review-stats-x"} style={{flex: " 1 1 0", padding: 10}}>
-                        <div style={{color: "#fff"}}><strong>{props?.data?.movieName}</strong> được nhận {listComment?.length} lượt đánh giá với số sao trung bình là <strong>{_.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2)}</strong></div>
+                        <div style={{color: "#fff"}}><strong>{props?.data?.movieName}</strong> received  {listComment?.length} reviews with an average star rating of <strong>{_.round(_.sumBy(listComment, function(e) {return parseInt(e.rate)}) / listComment.length, 2)}</strong></div>
                     </div>
                 </div>
                 <br />
                 <div style={{color: "#fff"}}>
-                    <div>Viết bình luận của bạn</div>
+                    <div>Type your comment and rating</div>
                     <br />
                     <div>
                         <input value={commentContent} onChange={(e)=> setCommentContent(e.target.value)} type="text" style={{width: 400, height: 40, borderRadius: 80, border: "none", outlineColor: "#2e89ff", color: "#000", padding: 10, }} placeholder={"Nhập bình luận của bạn "} />
                     </div>
                     <br />
-                    <div>Đánh giá</div>
+                    <div>Rate</div>
                     <div>
                         <Rate onChange={(e)=> setRateStar(e)} value={rateStar} />
                     </div>
                     <br />
-                    <Button onClick={sendComment} disabled={disable} type={"primary"}>Gửi</Button>
+                    <Button onClick={sendComment} disabled={disable} type={"primary"}>Submit</Button>
                     
                 </div>
             </div>
             <div className={"wrap-1-2"} style={{flex: "1 1 0"}}>
-                <div style={{fontSize: 24, fontWeight: 600, color: "#fff", textAlign: "center"}}>Các bình luận khác</div>
+                <div style={{fontSize: 24, fontWeight: 600, color: "#fff", textAlign: "center"}}>Other comments and rating</div>
                 <br />
                 <div style={{maxHeight: 700, overflow: "auto"}}>
                     {

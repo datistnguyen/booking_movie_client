@@ -62,7 +62,7 @@ const FilmHot = (props) => {
                 </div>
                 <br />
                 <div style={{ fontSize: 13, color: "#a1a1a1" }}>
-                  Ngày khởi chiếu:{" "}
+                Premiere date:{" "}
                   {moment(item?.dateStart).format("DD/MM/YYYY HH:mm:ss A")}
                 </div>
                 <br />
@@ -70,7 +70,7 @@ const FilmHot = (props) => {
                   className={"film-c-desc"}
                   style={{ overflow: "hidden", width: "100%" }}
                 >
-                  Mô tả: {item?.desc}
+                  Description: {item?.desc}
                 </div>
               </div>
               <div style={{height: 200, aspectRatio: 2 / 3, position: "relative", cursor: "pointer"}}>

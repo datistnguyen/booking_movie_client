@@ -119,3 +119,9 @@
     background-size: cover !important;
     background-position: center !important;
   }
+  .site-layout-background {
+    overflow: auto;
+  }
+  .container {
+    width: 85% !important
+  }

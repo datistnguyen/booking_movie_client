@@ -130,7 +130,40 @@ export default function Header() {
             </div>
           }
           {
-            open1=== true && <>Search</>
+            open1=== true && <><OutsideClickHandler onOutsideClick={()=> setOpen1(false)}>
+              <Input value={searchString} onChange={(e)=> {
+                setSearchString(e.target.value)
+                if(e.target.value.length > 0) {
+                  setOpenSearch(true)
+                }
+                else {
+                  setOpenSearch(false)
+                }
+                setSearch(fuse.search(e.target.value))
+                console.log(fuse.search(e.target.value))
+              }} placeholder="Search film..." style={{width: 350, height: 40, borderRadius: 80}} />
+              {
+                openSearch=== true && <OutsideClickHandler onOutsideClick={()=> setOpenSearch(()=> false)}>
+                    <div style={{width: "100%", position: "absolute", left: 0, top: "100%", background: "#fff", zIndex: 99, borderRadius: 10, overflow: "hidden"}}>
+                      <div style={{width: "100%", maxHeight: 300, overflow: "auto", cursor: "pointer", padding: 10}}>
+                        {search?.length > 0 && search?.map((item, key)=> <Link onClick={(e)=> {
+                          e.stopPropagation()
+                          setOpenSearch(false)
+                        }} to={"/booking/movie-information/"+ item?.item?.id} key={key}>
+                        <div key={key} style={{padding: 10, alignItems: "flex-start", gap: 10}} className={"c-flex-center c-hover-eff"}>
+                        <img src={item?.item?.img} style={{width: 100, aspectRatio: 2 / 3, borderRadius: 5}} alt="" />
+                        <div style={{height: "auto"}}>
+                          <div className="film-c-desc" style={{marginBottom: 12, color: "#000"}}>{item?.item?.movieName}</div>
+                          <div className={"c-desc-s"} style={{fontSize: 12, color: "#000", width: "100%"}}>{item?.item?.desc}</div>
+                        </div>
+                      </div>
+                      </Link>)}
+                      {search?.length <= 0 && <div style={{padding: 10, textAlign: "center", color: "#000"}}>No search result</div>}
+                      </div>
+                  </div>
+                </OutsideClickHandler>
+              }
+            </OutsideClickHandler></>
           }
           </>
         </div>
@@ -175,7 +208,7 @@ export default function Header() {
             activeClassName="border-b-1 border-white"
             to="/contact"
           >
-            Liên hệ
+            Contact
           </NavLink>
         </li>
       </ul>

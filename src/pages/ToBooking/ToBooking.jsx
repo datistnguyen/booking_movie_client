@@ -70,7 +70,7 @@ const ToBooking = (props) => {
                 setBookTime(prev=> parseInt(prev) - 1)
             }
             if(bookTime<= 1) {
-                swal("Thông báo", "Đã hết thời gian đặt phòng. Bạn vui lòng thao tác lại", "success")
+                swal("Notice", "The reservation time has expired. Please try again", "success")
                 .then(()=> navigate(-1))
                 return clearInterval(intervalId)
             }
@@ -152,7 +152,7 @@ const Header= (props)=> {
                     <NavLink className={({isActive})=> isActive ? "fdjkdjhdheajsasldada" : "fdjlsfhjkdhjakwshasas"} to={"/book/choose-chair"}>
                         <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 5}}>
                             <FiGrid style={{width: 20, height: 20}} />
-                            <div style={{fontSize: 12}}>Chọn ghế</div>
+                            <div style={{fontSize: 12}}>Choose chair</div>
                         </div>
                     </NavLink>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -178,7 +178,7 @@ const Header= (props)=> {
                     <NavLink className={({isActive})=> isActive ? "fdjkdjhdheajsasldada" : "fdjlsfhjkdhjakwshasas"} to={"/book/checkout"}>
                         <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 5}}>
                             <FiCreditCard style={{width: 20, height: 20}} />
-                            <div style={{fontSize: 12}}>Thanh toán</div>
+                            <div style={{fontSize: 12}}>Payment</div>
                         </div>
                     </NavLink>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -191,7 +191,7 @@ const Header= (props)=> {
                     <NavLink className={({isActive})=> isActive ? "fdjkdjhdheajsasldada" : "fdjlsfhjkdhjakwshasas"} to={"/book/ticket/detail/"+ props?.idBook}>
                         <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 5}}>
                             <FiInbox style={{width: 20, height: 20}} />
-                            <div style={{fontSize: 12}}>Thông tin vé</div>
+                            <div style={{fontSize: 12}}>Ticket information</div>
                         </div>
                     </NavLink>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -219,7 +219,7 @@ const ChooseChair= (props)=> {
             })
             const result= await res.data
             if(result.runout=== true ) {
-                swal("Thông báo", "Phim đã hết phòng, bạn vui lòng đặt rạp khác", "success")
+                swal("Notice", "The movie is out of room, please book another theater", "success")
                 .then(()=> navigate(-1))
             }
             setSeated(result.seated)
@@ -239,29 +239,29 @@ const ChooseChair= (props)=> {
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5}}>
                     <div>{props?.detailFilm?.data?.movieName}</div>
                     <div className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{props?.detailFilm?.data?.cinemaName}</div>
-                    <div>Suất <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("HH:mm")}</span> - {moment(props?.timeStart).format("dddd")}, <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("DD/MM")}</span></div>
+                    <div>Set <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("HH:mm")}</span> - {moment(props?.timeStart).format("dddd")}, <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{moment(props?.timeStart).format("DD/MM")}</span></div>
                 </div>
                 <br />
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5}}>
-                    <div>Phòng chiếu</div>
-                    <div className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{infoRoom?.RoomName}</div>
-                    <div>Ghế: <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{props?.seatBook?.map((item, key)=> <Fragment key={key}>{item}{parseInt(key) === props?.seatBook?.length - 1 ? "" : ","}</Fragment>)}</span></div>
+                    <span>Room:&nbsp;</span>
+                    <span className={"jldfjskldjkfasas"} style={{fontSize: 15, fontWeight: 600}}>{infoRoom?.RoomName}</span>
+                    <div>Seat: <span className={"sgdjkldfjksldjsa"} style={{fontWeight: 600, fontSize: 15}}>{props?.seatBook?.map((item, key)=> <Fragment key={key}>{item}{parseInt(key) === props?.seatBook?.length - 1 ? "" : ","}</Fragment>)}</span></div>
                 </div>
                 <br />
                 <div className={"jdfjhldjiaoehjas"} style={{width: "100%", padding: 10, background: "#fff", borderRadius: 5, display: "flex", justifyContent: "space-between", alignItems: "center",}}>
                     <div className={"fdajklfjsakldjaks"}>
-                        <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600}}>Tổng đơn hàng</div>
+                        <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600}}>Total order </div>
                         <div className={"fzjldsjkfhdjkdhsdsa"} style={{fontSize: 18, fontWeight: 600}}>{numberWithCommas(parseInt(props?.detailFilm?.data?.price) * parseInt(props?.seatBook.length) * ((1 - parseInt(props?.discount) / 100))) || "_"}đ</div>
                     </div>
                     <div>|</div>
                     <div className={"fdajklfjsakldjaks"} style={{direction: "rtl"}}>
-                        <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600, direction: "rtl", textAlign: "right"}}>Thời gian giữ ghế</div>
+                        <div className={"fdzjdjskldjassaaws"} style={{fontSize: 14, fontWeight: 600, direction: "rtl", textAlign: "right"}}>Time holding</div>
                         <ComponentCounter counter={props?.bookTime} />
                     </div>
                 </div>
                 <br />
                 <div onClick={()=> navigate("/book/checkout/"+ props?.idFilm+ "/"+ props?.idCinema, {state: {timeStart: moment(props?.timeStart).format("DD-MM-YYYY hh:mm:ss"), idRoom: infoRoom?.id, playTimeId: location.state?.playTimeId}})} className={"jdsldjskldjksldas"} style={{width: "100%", color: "#fff", backgroundColor: "#12263f", borderRadius: 5, display: "flex", justifyContent: "center", alignItems: "center", fontWeight: 600, cursor: "pointer", padding: "12px 10px", fontSize: 16 }}>
-                    Tiếp tục
+                    Continue
                 </div>
             </div>
         </div>
@@ -273,17 +273,17 @@ const TypeSeat= memo((props)=> {
         <div className={"dfdjdslksjldkajss"} style={{width: '100%', display: "flex", justifyContent: "center", alignItems: "center", gap: 20}}>
             <div className={"fdksldjdkljdklas"} style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 5}}>
                 <div className={"djdjdkljklsjasas"} style={{width: 20, height: 20, backgroundColor: "#00b300", color: "#fff", boxShadow: "0 0 11px #00b300"}}></div>
-                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Ghế bạn chọn</div>
+                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Chosen</div>
             </div>
             {/*  */}
             <div className={"fdksldjdkljdklas"} style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 5}}>
                 <div className={"djdjdkljklsjasas"} style={{width: 20, height: 20, backgroundImage: "url(https://moveek.com/build/images/seat-unavailable.74bb3c1e.png)", color: "#fff", backgroundRepeat: "no-repeat", backgroundColor: "#dfdfdf", backgroundPosition: "center"}}></div>
-                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Không thể chọn</div>
+                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Prohibit</div>
             </div>
             {/*  */}
             <div className={"fdksldjdkljdklas"} style={{display: "flex", justifyContent:" center", alignItems: "center", gap: 5}}>
                 <div className={"djdjdkljklsjasas"} style={{width: 20, height: 20, background: "repeating-linear-gradient(45deg,hsla(0,0%,60%,.4),hsla(0,0%,60%,.4) 10px,hsla(0,0%,60%,.6) 0,hsla(0,0%,60%,.6) 20px)", color: "#fff"}}></div>
-                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Ghế đã bán</div>
+                <div className={"fdgljjhzslkdjksl"} style={{fontSize: 12,}}>Sold</div>
             </div>
         </div>
     )
@@ -294,7 +294,7 @@ const StructureCinema= memo((props)=> {
     return (
         <div className={"dskldkfkddlskasssas"} style={{width: '100%'}}>
             <div className={"fjdjklfjkdlajklasdas"} style={{width: "calc(100% - 38px)", marginLeft: 38, display: "flex", justifyContent:" center", alignItems: "center", fontSize: 18, fontWeight: 600, textTransform: "uppercase", background:" #dfdfdf", marginBottom: 12}}>
-                Màn hình
+                Screen
              </div>
             <div className={"jfjsdklfjklfjfjkdasas"} style={{width: '100%', display: "flex"}}>
                 <div className={"fkgjkljskdjkassada"} style={{width: 40, display: "flex", flexDirection: "column", gap: 6, marginTop: 3}}>

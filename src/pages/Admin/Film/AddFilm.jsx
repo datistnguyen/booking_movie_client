@@ -46,78 +46,79 @@ const AddFilm = () => {
     })
     // eslint-disable-next-line
     const result= await res.data
-    swal("Chúc mừng", "Bạn đã cập nhật tài khoản thành công", "success")
+    swal("Congratulations", "You have successfully updated the movie", "success")
     .then(()=> window.location.reload())
   }
   return (
     <div className={"add-film-page"}>
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Tên phim
+        Movie's name
       </div>
       <Input value={newFilm.movieName} onChange={(e)=> setNewFilm(prev=> ({...prev, movieName: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Mô tả
+        Describe
       </div>
       <Input value={newFilm.desc}  onChange={(e)=> setNewFilm(prev=> ({...prev, desc: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Diễn viên
+        Actor
       </div>
       <Input value={newFilm.actor} onChange={(e)=> setNewFilm(prev=> ({...prev, actor: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Đạo diễn
+        Director
       </div>
       <Input value={newFilm.director} onChange={(e)=> setNewFilm(prev=> ({...prev, director: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Giá
+        Price
       </div>
       <Input value={newFilm.price} onChange={(e)=> setNewFilm(prev=> ({...prev, price: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ảnh phim
+      Movie photo
       </div>
       <Input value={newFilm.img} onChange={(e)=> setNewFilm(prev=> ({...prev, img: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-       Ngày bắt đầu
+      Start day
       </div>
       <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(newFilm.dateStart)} onChange={(e, value)=> setNewFilm(prev=> ({...prev, dateStart: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Ngày kết thúc
+      End date
       </div>
       <DatePicker style={{width: '100%'}} showTime format="YYYY-MM-DD HH:mm:ss" value={moment(newFilm.dateEnd)} onChange={(e, value)=> setNewFilm(prev=> ({...prev, dateEnd: value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Quốc gia
+      Nation
       </div>
       <Input value={newFilm.country} onChange={(e)=> setNewFilm(prev=> ({...prev, country: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Nhà sản xuất
+        
+        Producer
       </div>
       <Input value={newFilm.flimStudio} onChange={(e)=> setNewFilm(prev=> ({...prev, flimStudio: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Phiên bản
+      Version
       </div>
       <Input value={newFilm.version} onChange={(e)=> setNewFilm(prev=> ({...prev, version: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Thể loại
+        Genre
       </div>
       <Input value={newFilm.genre} onChange={(e)=> setNewFilm(prev=> ({...prev, genre: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Độ tuổi
+      Age
       </div>
       <Input value={newFilm.limitAge} onChange={(e)=> setNewFilm(prev=> ({...prev, limitAge: e.target.value}))} />
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Thuộc rạp
+      Belonging to the theater
       </div>
       <Select onChange={(e)=> setNewFilm(prev=> ({...prev, CinemaId: e}))} style={{width: "100%"}}>
         {
@@ -126,7 +127,7 @@ const AddFilm = () => {
       </Select>
       <br />
       <div className={"label-add-film-page"}  style={{marginBottom: 6}}>
-        Thời lượng
+        Time
       </div>
       <Input value={newFilm.state} onChange={(e)=> setNewFilm(prev=> ({...prev, state: e.target.value}))} />
       <br />

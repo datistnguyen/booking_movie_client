@@ -33,8 +33,20 @@ const Payment = (props) => {
     })))
     const result= await Promise.all(arrPromise)
     props?.setIdBook(result[0]?.data?.id_book)
+    axios({
+      url: "http://localhost:8080/mail",
+      method: "post",
+      data: {
+        film: props?.detailFilm?.data?.movieName,
+        cinema: props?.detailFilm?.data?.cinemaName,
+        set: moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("HH:mm")+ " - "+ moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("dddd")+ ", "+ moment(location.state?.timeStart, "DD-MM-YYYY HH:mm:sss").format("DD/MM"),
+        seat: props?.seatBook?.toString(),
+        total: (numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length * (1 - (parseInt(props?.discount) || 0) /100 ) + 5000) || "_") + "đ",
+        email: userLogin?.email
+      }
+    })
     return result[0]?.data?.id_book
-
+    
   }
   return (
     <div
@@ -58,26 +70,26 @@ const Payment = (props) => {
         <table className={"gfzdjdljskdljksla"} style={{ width: "100%" }}>
           <thead className={"gjlkdhjjhdjkadassa"}>
             <tr>
-              <th>Mô tả</th>
-              <th style={{textAlign: "center"}}>Số lượng</th>
-              <th style={{ textAlign: "right" }}>Thành tiền</th>
+              <th>Describe</th>
+              <th style={{textAlign: "center"}}>Amount</th>
+              <th style={{ textAlign: "right" }}>Provisional</th>
             </tr>
             <tr>
               <td>Standard</td>
               <td style={{textAlign: 'center'}}>{props?.seatBook?.length}</td>
               <td style={{textAlign: "right"}}>
-                {numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length) || "_"}
+                {numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length) || "_"}đ
               </td>
             </tr>
             <tr>
-              <td>Phí tiện ích</td>
+              <td>Utility fee</td>
               <td></td>
               <td style={{textAlign: "right"}}>
                 5,000đ
               </td>
             </tr>
             <tr>
-              <td>Tổng</td>
+              <td>Total</td>
               <td></td>
               <td style={{textAlign: "right"}}>
                 {numberWithCommas(parseInt(props?.detailFilm?.data?.price) * props?.seatBook.length + 5000) || "_"}đ
@@ -107,7 +119,7 @@ const Payment = (props) => {
             {props?.detailFilm?.data?.cinemaName}
           </div>
           <div>
-            Suất{" "}
+            Set{" "}
             <span
               className={"sgdjkldfjksldjsa"}
               style={{ fontWeight: 600, fontSize: 15 }}
@@ -142,7 +154,7 @@ const Payment = (props) => {
               className={"fdzjdjskldjassaaws"}
               style={{ fontSize: 14, fontWeight: 600 }}
             >
-              Tổng đơn hàng
+              Total order
             </div>
             <div
               className={"fzjldsjkfhdjkdhsdsa"}
@@ -162,7 +174,7 @@ const Payment = (props) => {
                 textAlign: "right",
               }}
             >
-              Thời gian giữ ghế
+              Holding time
             </div>
             <ComponentCounter counter={props?.bookTime} />
           </div>
@@ -177,8 +189,8 @@ const Payment = (props) => {
             borderRadius: 5,
           }}
         >
-          <div className={"djkljskdljklfddsa"}>Vé đã mua không thể đổi hoặc hoàn tiền.</div>
-          <div>Mã vé sẽ được gửi <span style={{fontWeight: 600}}>01</span> lần qua số điện thoại và email đã nhập. Vui lòng kiểm tra lại thông tin trước khi tiếp tục.</div>
+          <div className={"djkljskdljklfddsa"}>Tickets purchased cannot be exchanged or refunded.</div>
+          <div>Ticket code will be sent <span style={{fontWeight: 600}}>01</span> time via the phone number and email entered. Please double check the information before continuing.</div>
         </div>
         <br />
         <div
@@ -193,10 +205,10 @@ const Payment = (props) => {
               switch(value) {
                 case "success":
                   const result= await checkout()
-                  swal("Chúc mừng!", "Bạn đã thanh toán thành công!","success", {
+                  swal("Congratulation!", "You have successfully paid!" ,"success", {
                     buttons: {
                       backtoHome: "Ok",
-                      infoTicket: "Thông tin vé"
+                      infoTicket: "Ticket info"
                     }
                   })
                   .then((value)=> {
@@ -234,7 +246,7 @@ const Payment = (props) => {
             fontSize: 16,
           }}
         >
-          Thanh toán
+          Pay
         </div>
       </div>
     </div>
